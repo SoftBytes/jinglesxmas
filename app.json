@@ -47,6 +47,5 @@
       "Facebook app client callback URL",
       "required" : false
     }
-    
   }
 }
