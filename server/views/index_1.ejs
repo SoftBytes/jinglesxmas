@@ -46,9 +46,7 @@
 <br/><br/>
 </div>
 <script>
-
 $(document).ready(function(){
-
   	
   	$('input[name="tree_size"]').on('change', function() {
   		$('input[name="tree_size"]').not(this).prop('checked', false);
@@ -69,7 +67,6 @@ $(document).ready(function(){
   		
   		$("#displayValue").html("<span>"+$('input[name="tree_size"]:checked').val()+"</span> " + " Add-ons: "+add_ons.join(", ")+" </br>");
   	});
-
   	$('#btnMultiple').click(function(){
   		var add_ons = [];
   		$("input:checkbox[name='add_ons']:checked").each(function(){    
@@ -79,7 +76,6 @@ $(document).ready(function(){
   		//Cookie.set("test" : "1");
   		var  cookieValue = [];
   		cookieValue.push( $('input[name="tree_size"]:checked').val()+'}',add_ons);
-
   		createCookie('userCard', '{"tree_size":'+ $('input[name="tree_size"]:checked').val() +',"add_ons":"'+add_ons+'"}', 1);
   		createCookie('userName','<%= user %>',1)
   		window.location.replace("http://localhost:3000/readcookies");
