@@ -15,10 +15,9 @@ const stripe = require('stripe')(config.stripe.secretKey);
 // For product retrieval and listing set API version to 2018-02-28 so that skus are returned.
 stripe.setApiVersion('2018-02-28');
 
-// List all products.
-const listProducts = async () => {
-  //return await stripe.products.list({limit: 3, type: 'good'});
-  return await stripe.products.list({ids : ['01_tree_6', '04_stand_std','06_installation']});
+// List products that match with customer's input choice by ID.
+const listProducts = async productIds => {
+  return await stripe.products.list({ids : productIds});
 };
 
 // Retrieve a product by ID.
@@ -30,7 +29,7 @@ const retrieveProduct = async productId => {
 const getShippingCost = shippingOption => {
   return config.shippingOptions.filter(
     option => option.id === shippingOption
-  )[1].amount;
+  )[0].amount;
 };
 
 exports.products = {
