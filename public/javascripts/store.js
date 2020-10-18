@@ -65,11 +65,16 @@ class Store {
     }
   }
 
+  loadSingleProduct(id) {
+
+  }
   // Load the product details.
   loadProducts() {
     if (!this.productsFetchPromise) {
       this.productsFetchPromise = new Promise(async resolve => {
-        const productsResponse = await fetch('/products');
+        // custom implementation of parsing user prompted data from url
+        const search = window.location.search;  // get url
+        const productsResponse = await fetch(`/products${search}`);   // get product IDs from url 
         const products = (await productsResponse.json()).data;
         if (!products.length) {
           throw new Error(
