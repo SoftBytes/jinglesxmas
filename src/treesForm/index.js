@@ -37,19 +37,23 @@ class TreesForm extends React.Component {
         ...state, 
         trees: trees, 
         selectedTree : tree,
-        total: this.getTotal({treePrice:tree.price}) 
+        total: this.getTotal({tree:tree}) 
       }
     })
   }
 
   getTotal({
-    treePrice = this.state.selectedTree.price, 
+    tree = this.state.selectedTree,
     checkedItems = [...this.state.checkedItemsSet]
   }) {
-    const additinalItemsPrice = checkedItems.reduce(
-      (sum, currentValue) => sum + currentValue.price , 0
+    const additinalItemsPrice = checkedItems.reduce((sum, item) => { 
+        if (item.key === 'cincostand' && tree.name === LARGE_TREE_NAME) {
+          return sum + item.large.price 
+        }
+        return sum + item.price 
+      }, 0
     )
-    return treePrice + additinalItemsPrice
+    return tree.price + additinalItemsPrice
   }
 
   onDeliveryDateChange(deliveryDate) { 
@@ -92,19 +96,8 @@ class TreesForm extends React.Component {
     }
   }
 
-  hideStand(item) {
-    const { selectedTree } = this.state
-    if (item.key === 'largecincostand' && 
-      selectedTree.name !== LARGE_TREE_NAME)
-    {
-      return true
-    } 
-    if (item.key ===  'cincostand' && 
-      selectedTree.name === LARGE_TREE_NAME)
-    {
-      return true
-    }
-    return false
+  getLabelText(item) {
+    return <>{item.label} <span>{`+$${item.price}`}</span></>
   }
 
   onSubmit(e) {
@@ -121,15 +114,18 @@ class TreesForm extends React.Component {
 }
 
   render() {
-    const { trees, total, checkedItemsSet, disabledItemsSet } = this.state
+    const { trees, total, checkedItemsSet, disabledItemsSet, selectedTree } = this.state
 
     const treesList = trees.map(tree => (
       <TreeTile tree={tree} key={tree.name} selectTree={this.selectTree}/>
     ))
 
     const checkboxes = ADDITIONAL_ITEMS.map(item => {
-      if (this.hideStand(item)) {
-        return
+      let labelText = ''
+      if (item.key === 'cincostand' && selectedTree.name === LARGE_TREE_NAME) {
+        labelText = this.getLabelText(item.large)
+      } else {
+        labelText = this.getLabelText(item)
       }
       return (
         <div key={item.key}>
@@ -140,7 +136,7 @@ class TreesForm extends React.Component {
               disabled={disabledItemsSet.has(item)} 
               onChange={this.handleChange} 
             />
-            {item.label} <span>{`+$${item.price}`}</span>
+            {labelText}
           </label>
         </div>
     )})

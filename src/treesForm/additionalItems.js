@@ -4,12 +4,10 @@ export const ADDITIONAL_ITEMS = [{
         key: 'cincostand',
         label: 'Cinco Stand',
         price: 40,
-      },
-      {
-        name: 'largecincostand',
-        key: 'largecincostand',
-        label: 'Large Cinco Stand',
-        price: 60,
+        large: {
+          label: 'Large Cinco Stand',
+          price: 60,
+        },
       },
       {
         name: 'installation',
