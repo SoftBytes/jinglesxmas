@@ -3,7 +3,7 @@ export const ADDITIONAL_ITEMS = [{
         name: 'cincostand',
         key: 'cincostand',
         label: 'Cinco Stand',
-        price: 40,
+        price: 45,
         large: {
           label: 'Large Cinco Stand',
           price: 60,

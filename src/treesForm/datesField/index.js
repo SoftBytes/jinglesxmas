@@ -9,10 +9,12 @@ export default class DatesField extends React.Component {
 
   constructor(props) {
     super(props)
+
     this.state = {
       date: null,
       focused: true,
       daySize: 35,
+      availableDates: this.mapDates(),
     }
 
     this.onDateChange = this.onDateChange.bind(this);
@@ -45,6 +47,20 @@ export default class DatesField extends React.Component {
       window.removeEventListener("resize", this.resize.bind(this));
   }
 
+  componentDidUpdate(prevProps) {
+    if (this.props.availableDays !== prevProps.availableDays) {
+
+      this.setState({ 
+        availableDates: this.mapDates(),
+      })
+    }
+  }
+
+  mapDates() {
+    const { availableDays = [] } = this.props
+    return availableDays.map(d => `2020-12-${d<10 ? '0': ''}${d}`)
+  }
+
   onDateChange(date) {
     const { onDeliveryDateChange } = this.props
     onDeliveryDateChange(date);
@@ -56,24 +72,15 @@ export default class DatesField extends React.Component {
     this.setState({ focused: true });
   }
 
-// 1-2 December (week)
-// 5-6 December (weekend)
-// 8-9 December (week)
-// 12-13 December (weekend)
-// 15-16 December (week)
-// 19-20 December (weekend)
-
-  availableDates = [1,2,5,6,8,9,12,13,15,16,19,20].map(d => `2020-12-${d<10 ? '0': ''}${d}`)
-
-  isBlocked = day => {
-    return !this.availableDates.some(date => day.isSame(date, 'day'))
+  isBlocked = (availableDates, day) => {
+    return !availableDates.some(date => day.isSame(date, 'day'))
   }
 
   // https://github.com/airbnb/react-dates/blob/master/stories/DayPickerSingleDateController.js
 
   render() {
-    const { focused, date, daySize } = this.state
-  //daySize={36}
+    const { focused, date, daySize, availableDates } = this.state
+    const isDayBlocked = (day) => this.isBlocked(availableDates, day)
     return (
       <div className={styles.calendar}>
         <label>Delivery Date</label>
@@ -83,7 +90,7 @@ export default class DatesField extends React.Component {
           date={date}
           daySize={daySize}
           initialVisibleMonth={() => moment('12 2020', 'MM YYYY')}
-          isDayBlocked={this.isBlocked}
+          isDayBlocked={isDayBlocked}
           noNavButtons={true}
           hideKeyboardShortcutsPanel={true}
           onDateChange={this.onDateChange}
@@ -97,5 +104,6 @@ export default class DatesField extends React.Component {
   
   DatesField.propTypes = {
     onDeliveryDateChange: PropTypes.func.isRequired,
+    availableDays: PropTypes.array,
   }
   

@@ -6,6 +6,7 @@ import PostCodeInput from './postCodeInput'
 import * as styles from './styles'
 import { TREES, LARGE_TREE_NAME } from './trees'
 import { ADDITIONAL_ITEMS } from './additionalItems'
+import { POSTCODES } from './zones'
 
 class TreesForm extends React.Component {
 
@@ -21,11 +22,16 @@ class TreesForm extends React.Component {
       checkedItemsSet: new Set([defaultAdditionalSelection]),
       disabledItemsSet: new Set(),
       total: defaultTree.price + defaultAdditionalSelection.price,
+      cbdSurcharge: false,
+      postCode: null,
+      deliveryDate: null,
     }
+
     this.selectTree = this.selectTree.bind(this)
     this.handleChange = this.handleChange.bind(this)
     this.onSubmit = this.onSubmit.bind(this)
     this.onDeliveryDateChange = this.onDeliveryDateChange.bind(this)
+    this.onPostCodeChange = this.onPostCodeChange.bind(this)
   }
 
   selectTree(tree) {
@@ -60,6 +66,20 @@ class TreesForm extends React.Component {
     this.setState((state) => ({ 
       ...state,
       deliveryDate
+    }))
+  }
+
+  onPostCodeChange(postCode) { 
+    const cbdSurcharge = postCode <= 3008
+    const availableDates = POSTCODES
+      .find(c => c.code === postCode)
+      .zone.availableDates
+    
+    this.setState((state) => ({ 
+      ...state,
+      postCode,
+      cbdSurcharge,
+      availableDates,
     }))
   }
 
@@ -114,7 +134,14 @@ class TreesForm extends React.Component {
 }
 
   render() {
-    const { trees, total, checkedItemsSet, disabledItemsSet, selectedTree } = this.state
+    const { 
+      trees, 
+      total, 
+      checkedItemsSet, 
+      disabledItemsSet, 
+      selectedTree,
+      availableDates,
+    } = this.state
 
     const treesList = trees.map(tree => (
       <TreeTile tree={tree} key={tree.name} selectTree={this.selectTree}/>
@@ -157,8 +184,11 @@ class TreesForm extends React.Component {
           {checkboxes}
         </div>
         <hr className={styles.hr}/>
-        <PostCodeInput />
-        <DatesField onDeliveryDateChange={this.onDeliveryDateChange}/>
+        <PostCodeInput onPostCodeChange={this.onPostCodeChange}/>
+        <DatesField 
+          onDeliveryDateChange={this.onDeliveryDateChange}
+          availableDays={availableDates}
+        />
         <hr className={styles.hr}/>
         <button className={styles.cta}>
             {`Buy for $${total}`}
