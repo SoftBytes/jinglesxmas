@@ -1,5 +1,5 @@
 import { css } from 'emotion'
-import { RED, PALE_GREEN, CTA } from '../colorConsts'
+import { RED, PALE_GREEN, CTA, DARK_GREEN } from '../colorConsts'
 
 export const tilesWpap = css`
   padding: 8px 0;
@@ -76,7 +76,16 @@ export const cta = css`
   }
 
   @media (min-width: 768px) {
-    width: 12em;
     margin: 1em auto 0;
+  }
+`
+
+export const subTextGreen = css`
+  color: ${DARK_GREEN};
+  width: 100%;
+  margin: 1em auto 0;
+
+  @media (min-width: 500px) {
+    width: 30em;
   }
 `

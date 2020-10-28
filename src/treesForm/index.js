@@ -5,8 +5,8 @@ import DatesField from './datesField'
 import PostCodeInput from './postCodeInput'
 import * as styles from './styles'
 import { TREES, LARGE_TREE_NAME } from './trees'
-import { ADDITIONAL_ITEMS } from './additionalItems'
-import { POSTCODES } from './zones'
+import { ADDITIONAL_ITEMS, STAND_KEY } from './additionalItems'
+import { POSTCODES, WEEKEND_SURCHARGE } from './zones'
 
 class TreesForm extends React.Component {
 
@@ -22,7 +22,7 @@ class TreesForm extends React.Component {
       checkedItemsSet: new Set([defaultAdditionalSelection]),
       disabledItemsSet: new Set(),
       total: defaultTree.price + defaultAdditionalSelection.price,
-      cbdSurcharge: false,
+      areaSurcharge: 0,
       postCode: null,
       deliveryDate: null,
     }
@@ -50,36 +50,45 @@ class TreesForm extends React.Component {
 
   getTotal({
     tree = this.state.selectedTree,
-    checkedItems = [...this.state.checkedItemsSet]
+    checkedItems = [...this.state.checkedItemsSet],
+    deliveryDate = this.state.deliveryDate,
+    areaSurcharge = this.state.areaSurcharge,
   }) {
     const additinalItemsPrice = checkedItems.reduce((sum, item) => { 
-        if (item.key === 'cincostand' && tree.name === LARGE_TREE_NAME) {
+        if (item.key === STAND_KEY && tree.name === LARGE_TREE_NAME) {
           return sum + item.large.price 
         }
         return sum + item.price 
       }, 0
     )
-    return tree.price + additinalItemsPrice
+
+    let dateSurcharge = 0 
+    if (deliveryDate && deliveryDate.day() % 6 === 0) {
+      dateSurcharge = WEEKEND_SURCHARGE 
+    } 
+    
+    return tree.price + additinalItemsPrice + dateSurcharge + areaSurcharge
   }
 
   onDeliveryDateChange(deliveryDate) { 
     this.setState((state) => ({ 
       ...state,
-      deliveryDate
+      deliveryDate,
+      total: this.getTotal({ deliveryDate }),
     }))
   }
 
   onPostCodeChange(postCode) { 
-    const cbdSurcharge = postCode <= 3008
-    const availableDates = POSTCODES
-      .find(c => c.code === postCode)
-      .zone.availableDates
-    
+    const postCodeEnum = POSTCODES.find(c => c.code === postCode)
+    const availableDates = postCodeEnum ? postCodeEnum.zone.availableDates : []
+    const areaSurcharge = postCodeEnum ? postCodeEnum.zone.price : 0
+
     this.setState((state) => ({ 
       ...state,
       postCode,
-      cbdSurcharge,
+      areaSurcharge,
       availableDates,
+      total: this.getTotal({ areaSurcharge }),
     }))
   }
 
@@ -104,7 +113,7 @@ class TreesForm extends React.Component {
   }
 
   updateInstallation(isChecked, itemName, checkedItemsSet, disabledItemsSet) {
-    if (!itemName.includes('cincostand')) { 
+    if (!itemName.includes(STAND_KEY)) { 
       return
     }
     const installation = ADDITIONAL_ITEMS.find(i => i.name === 'installation')
@@ -149,7 +158,7 @@ class TreesForm extends React.Component {
 
     const checkboxes = ADDITIONAL_ITEMS.map(item => {
       let labelText = ''
-      if (item.key === 'cincostand' && selectedTree.name === LARGE_TREE_NAME) {
+      if (item.key === STAND_KEY && selectedTree.name === LARGE_TREE_NAME) {
         labelText = this.getLabelText(item.large)
       } else {
         labelText = this.getLabelText(item)
@@ -184,6 +193,9 @@ class TreesForm extends React.Component {
           {checkboxes}
         </div>
         <hr className={styles.hr}/>
+        <div className={styles.subTextGreen}>
+          Delivery starts in December. Additional weekend and area surcharge applies.
+        </div>
         <PostCodeInput onPostCodeChange={this.onPostCodeChange}/>
         <DatesField 
           onDeliveryDateChange={this.onDeliveryDateChange}

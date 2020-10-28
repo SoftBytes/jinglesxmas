@@ -1,3 +1,4 @@
+export const STAND_KEY = 'cincostand'
 
 export const ADDITIONAL_ITEMS = [{
         name: 'cincostand',

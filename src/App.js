@@ -6,7 +6,9 @@ const PrimaryLayout = () => (
   <div className={styles.pageWpap}>
   {/* <a className="facebook" href="https://www.facebook.com/Jinglesxmt" target="_blank" rel="noopener noreferrer">Follow us</a> */}
     <div className={styles.specialOffer}>
-      Standard size tree with Cinco Stand for $129 including delivery to Melbourne Metro Area.
+      Standard Tree with Cinco stand for $154
+      <br/>
+      <span>including delivery in Melbourne Area during the week.</span>
     </div>
     <h1 className={styles.h1}>
       Jingles Xmas Trees
