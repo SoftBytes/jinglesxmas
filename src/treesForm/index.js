@@ -4,7 +4,7 @@ import Checkbox from './checkbox'
 import DatesField from './datesField'
 import PostCodeInput from './postCodeInput'
 import * as styles from './styles'
-import { TREES } from './trees'
+import { TREES, LARGE_TREE_NAME } from './trees'
 import { ADDITIONAL_ITEMS } from './additionalItems'
 
 class TreesForm extends React.Component {
@@ -25,6 +25,7 @@ class TreesForm extends React.Component {
     this.selectTree = this.selectTree.bind(this)
     this.handleChange = this.handleChange.bind(this)
     this.onSubmit = this.onSubmit.bind(this)
+    this.onDeliveryDateChange = this.onDeliveryDateChange.bind(this)
   }
 
   selectTree(tree) {
@@ -51,6 +52,13 @@ class TreesForm extends React.Component {
     return treePrice + additinalItemsPrice
   }
 
+  onDeliveryDateChange(deliveryDate) { 
+    this.setState((state) => ({ 
+      ...state,
+      deliveryDate
+    }))
+  }
+
   handleChange(e) {
     const { checkedItemsSet, disabledItemsSet } = this.state
     const { name : itemName , checked : isChecked} = e.target
@@ -72,8 +80,8 @@ class TreesForm extends React.Component {
   }
 
   updateInstallation(isChecked, itemName, checkedItemsSet, disabledItemsSet) {
-    if (itemName !== 'cincostand') { 
-      return 
+    if (!itemName.includes('cincostand')) { 
+      return
     }
     const installation = ADDITIONAL_ITEMS.find(i => i.name === 'installation')
     if (isChecked) {
@@ -84,11 +92,26 @@ class TreesForm extends React.Component {
     }
   }
 
+  hideStand(item) {
+    const { selectedTree } = this.state
+    if (item.key === 'largecincostand' && 
+      selectedTree.name !== LARGE_TREE_NAME)
+    {
+      return true
+    } 
+    if (item.key ===  'cincostand' && 
+      selectedTree.name === LARGE_TREE_NAME)
+    {
+      return true
+    }
+    return false
+  }
+
   onSubmit(e) {
     e.preventDefault();
     console.log("submit");
 
-    fetch('https://your-node-server-here.com/api/submit-cart', {
+    fetch('/checkout', {
         method: 'POST',
         body: JSON.stringify({tree: this.state.selectedTree.name})
       }).then(function(response) {
@@ -104,7 +127,11 @@ class TreesForm extends React.Component {
       <TreeTile tree={tree} key={tree.name} selectTree={this.selectTree}/>
     ))
 
-    const checkboxes = ADDITIONAL_ITEMS.map(item => (
+    const checkboxes = ADDITIONAL_ITEMS.map(item => {
+      if (this.hideStand(item)) {
+        return
+      }
+      return (
         <div key={item.key}>
           <label className={styles.checkboxLabel}>
             <Checkbox 
@@ -116,7 +143,7 @@ class TreesForm extends React.Component {
             {item.label} <span>{`+$${item.price}`}</span>
           </label>
         </div>
-      ))
+    )})
     
 
     return (
@@ -134,8 +161,8 @@ class TreesForm extends React.Component {
           {checkboxes}
         </div>
         <hr className={styles.hr}/>
-        <DatesField />
         <PostCodeInput />
+        <DatesField onDeliveryDateChange={this.onDeliveryDateChange}/>
         <hr className={styles.hr}/>
         <button className={styles.cta}>
             {`Buy for $${total}`}

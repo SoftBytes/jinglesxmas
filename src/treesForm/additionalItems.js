@@ -6,6 +6,12 @@ export const ADDITIONAL_ITEMS = [{
         price: 40,
       },
       {
+        name: 'largecincostand',
+        key: 'largecincostand',
+        label: 'Large Cinco Stand',
+        price: 60,
+      },
+      {
         name: 'installation',
         key: 'installation',
         label: 'Installation',

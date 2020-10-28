@@ -1,7 +1,6 @@
 
 import React from 'react'
-// import PropTypes from 'prop-types'
-// import * as trees from '../trees'
+import PropTypes from 'prop-types'
 import { DayPickerSingleDateController } from 'react-dates'
 import moment from 'moment'
 import * as styles from './styles'
@@ -47,6 +46,8 @@ export default class DatesField extends React.Component {
   }
 
   onDateChange(date) {
+    const { onDeliveryDateChange } = this.props
+    onDeliveryDateChange(date);
     this.setState({ date });
   }
 
@@ -92,5 +93,9 @@ export default class DatesField extends React.Component {
       </div>
     );
     }
+  }
+  
+  DatesField.propTypes = {
+    onDeliveryDateChange: PropTypes.func.isRequired,
   }
   
