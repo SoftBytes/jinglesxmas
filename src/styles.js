@@ -31,6 +31,12 @@ export const specialOffer = css`
   border: 1px solid #fff;
   position: relative;
 
+  span {
+    font-size: 0.8em;
+    line-height: 1.2em;
+    color: ${YELLOW};
+  }
+
   ::after {
     content: "";
     background-image: url("./images/bells.png"); 
@@ -62,6 +68,10 @@ export const specialOffer = css`
     font-size: 1.6vw;
     line-height: 2vw;
     padding: 0.5em 0.5em 0.5em 2.2em;
+
+    span {
+      font-size: 0.75em;
+    }
   }
 `
 

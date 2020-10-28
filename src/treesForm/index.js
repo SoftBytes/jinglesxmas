@@ -4,8 +4,9 @@ import Checkbox from './checkbox'
 import DatesField from './datesField'
 import PostCodeInput from './postCodeInput'
 import * as styles from './styles'
-import { TREES } from './trees'
-import { ADDITIONAL_ITEMS } from './additionalItems'
+import { TREES, LARGE_TREE_NAME } from './trees'
+import { ADDITIONAL_ITEMS, STAND_KEY } from './additionalItems'
+import { POSTCODES, WEEKEND_SURCHARGE } from './zones'
 
 class TreesForm extends React.Component {
 
@@ -21,10 +22,16 @@ class TreesForm extends React.Component {
       checkedItemsSet: new Set([defaultAdditionalSelection]),
       disabledItemsSet: new Set(),
       total: defaultTree.price + defaultAdditionalSelection.price,
+      areaSurcharge: 0,
+      postCode: null,
+      deliveryDate: null,
     }
+
     this.selectTree = this.selectTree.bind(this)
     this.handleChange = this.handleChange.bind(this)
     this.onSubmit = this.onSubmit.bind(this)
+    this.onDeliveryDateChange = this.onDeliveryDateChange.bind(this)
+    this.onPostCodeChange = this.onPostCodeChange.bind(this)
   }
 
   selectTree(tree) {
@@ -36,19 +43,53 @@ class TreesForm extends React.Component {
         ...state, 
         trees: trees, 
         selectedTree : tree,
-        total: this.getTotal({treePrice:tree.price}) 
+        total: this.getTotal({tree:tree}) 
       }
     })
   }
 
   getTotal({
-    treePrice = this.state.selectedTree.price, 
-    checkedItems = [...this.state.checkedItemsSet]
+    tree = this.state.selectedTree,
+    checkedItems = [...this.state.checkedItemsSet],
+    deliveryDate = this.state.deliveryDate,
+    areaSurcharge = this.state.areaSurcharge,
   }) {
-    const additinalItemsPrice = checkedItems.reduce(
-      (sum, currentValue) => sum + currentValue.price , 0
+    const additinalItemsPrice = checkedItems.reduce((sum, item) => { 
+        if (item.key === STAND_KEY && tree.name === LARGE_TREE_NAME) {
+          return sum + item.large.price 
+        }
+        return sum + item.price 
+      }, 0
     )
-    return treePrice + additinalItemsPrice
+
+    let dateSurcharge = 0 
+    if (deliveryDate && deliveryDate.day() % 6 === 0) {
+      dateSurcharge = WEEKEND_SURCHARGE 
+    } 
+    
+    return tree.price + additinalItemsPrice + dateSurcharge + areaSurcharge
+  }
+
+  onDeliveryDateChange(deliveryDate) { 
+    this.setState((state) => ({ 
+      ...state,
+      deliveryDate,
+      total: this.getTotal({ deliveryDate }),
+    }))
+  }
+
+  onPostCodeChange(postCode) { 
+    const postCodeEnum = POSTCODES.find(c => c.code === postCode)
+    const availableDates = postCodeEnum ? postCodeEnum.zone.availableDates : []
+    const areaSurcharge = postCodeEnum ? postCodeEnum.zone.price : 0
+
+    this.setState((state) => ({ 
+      ...state,
+      postCode,
+      areaSurcharge,
+      availableDates,
+      total: this.getTotal({ areaSurcharge }),
+    }))
   }
 
   handleChange(e) {
@@ -72,8 +113,8 @@ class TreesForm extends React.Component {
   }
 
   updateInstallation(isChecked, itemName, checkedItemsSet, disabledItemsSet) {
-    if (itemName !== 'cincostand') { 
-      return 
+    if (!itemName.includes(STAND_KEY)) { 
+      return
     }
     const installation = ADDITIONAL_ITEMS.find(i => i.name === 'installation')
     if (isChecked) {
@@ -84,11 +125,15 @@ class TreesForm extends React.Component {
     }
   }
 
+  getLabelText(item) {
+    return <>{item.label} <span>{`+$${item.price}`}</span></>
+  }
+
   onSubmit(e) {
     e.preventDefault();
     console.log("submit");
 
-    fetch('https://your-node-server-here.com/api/submit-cart', {
+    fetch('/checkout', {
         method: 'POST',
         body: JSON.stringify({tree: this.state.selectedTree.name})
       }).then(function(response) {
@@ -98,13 +143,27 @@ class TreesForm extends React.Component {
 }
 
   render() {
-    const { trees, total, checkedItemsSet, disabledItemsSet } = this.state
+    const { 
+      trees, 
+      total, 
+      checkedItemsSet, 
+      disabledItemsSet, 
+      selectedTree,
+      availableDates,
+    } = this.state
 
     const treesList = trees.map(tree => (
       <TreeTile tree={tree} key={tree.name} selectTree={this.selectTree}/>
     ))
 
-    const checkboxes = ADDITIONAL_ITEMS.map(item => (
+    const checkboxes = ADDITIONAL_ITEMS.map(item => {
+      let labelText = ''
+      if (item.key === STAND_KEY && selectedTree.name === LARGE_TREE_NAME) {
+        labelText = this.getLabelText(item.large)
+      } else {
+        labelText = this.getLabelText(item)
+      }
+      return (
         <div key={item.key}>
           <label className={styles.checkboxLabel}>
             <Checkbox 
@@ -113,10 +172,10 @@ class TreesForm extends React.Component {
               disabled={disabledItemsSet.has(item)} 
               onChange={this.handleChange} 
             />
-            {item.label} <span>{`+$${item.price}`}</span>
+            {labelText}
           </label>
         </div>
-      ))
+    )})
     
 
     return (
@@ -134,8 +193,14 @@ class TreesForm extends React.Component {
           {checkboxes}
         </div>
         <hr className={styles.hr}/>
-        <DatesField />
-        <PostCodeInput />
+        <div className={styles.subTextGreen}>
+          Delivery starts in December. Additional weekend and area surcharge applies.
+        </div>
+        <PostCodeInput onPostCodeChange={this.onPostCodeChange}/>
+        <DatesField 
+          onDeliveryDateChange={this.onDeliveryDateChange}
+          availableDays={availableDates}
+        />
         <hr className={styles.hr}/>
         <button className={styles.cta}>
             {`Buy for $${total}`}

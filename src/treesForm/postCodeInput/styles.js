@@ -9,7 +9,7 @@ export const postcode = css`
   width: 8em;
   max-width: 80%;
   box-sizing: border-box;
-  margin: 0 auto 1em;
+  margin: 1em auto 0;
   border-radius: 6px;
 
 `
