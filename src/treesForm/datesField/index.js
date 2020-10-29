@@ -2,7 +2,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { DayPickerSingleDateController } from 'react-dates'
-import moment from 'moment'
+import moment, { Moment } from 'moment'
 import * as styles from './styles'
 
 export default class DatesField extends React.Component {
@@ -10,11 +10,12 @@ export default class DatesField extends React.Component {
   constructor(props) {
     super(props)
 
+    const { deliveryDate } = this.props
+
     this.state = {
-      date: null,
+      date: deliveryDate,
       focused: true,
       daySize: 35,
-      availableDates: this.mapDates(),
     }
 
     this.onDateChange = this.onDateChange.bind(this);
@@ -48,39 +49,33 @@ export default class DatesField extends React.Component {
   }
 
   componentDidUpdate(prevProps) {
-    if (this.props.availableDays !== prevProps.availableDays) {
-
+    if (this.props.deliveryDate !== prevProps.deliveryDate) {
+      debugger
       this.setState({ 
-        availableDates: this.mapDates(),
+        date: this.props.deliveryDate
       })
     }
   }
 
-  mapDates() {
-    const { availableDays = [] } = this.props
-    return availableDays.map(d => `2020-12-${d<10 ? '0': ''}${d}`)
-  }
-
   onDateChange(date) {
     const { onDeliveryDateChange } = this.props
-    onDeliveryDateChange(date);
-    this.setState({ date });
+    onDeliveryDateChange(date)
+    this.setState({ date })
   }
 
   onFocusChange() {
     // Force the focused states to always be truthy so that date is always selectable
-    this.setState({ focused: true });
+    this.setState({ focused: true })
   }
 
-  isBlocked = (availableDates, day) => {
-    return !availableDates.some(date => day.isSame(date, 'day'))
+  isBlocked = (availableDays, day) => {
+    return !availableDays.find(d => d === day.date())
   }
-
-  // https://github.com/airbnb/react-dates/blob/master/stories/DayPickerSingleDateController.js
 
   render() {
-    const { focused, date, daySize, availableDates } = this.state
-    const isDayBlocked = (day) => this.isBlocked(availableDates, day)
+    const { focused, daySize, date } = this.state
+    const { availableDays = [] } = this.props
+    const isDayBlocked = (day) => this.isBlocked(availableDays, day)
     return (
       <div className={styles.calendar}>
         <label>Delivery Date</label>
@@ -105,5 +100,6 @@ export default class DatesField extends React.Component {
   DatesField.propTypes = {
     onDeliveryDateChange: PropTypes.func.isRequired,
     availableDays: PropTypes.array,
+    deliveryDate: PropTypes.instanceOf(Moment)
   }
   

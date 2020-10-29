@@ -77,6 +77,7 @@ export const cta = css`
 
   @media (min-width: 768px) {
     margin: 1em auto 0;
+    width: 12em;
   }
 `
 
@@ -84,8 +85,4 @@ export const subTextGreen = css`
   color: ${DARK_GREEN};
   width: 100%;
   margin: 1em auto 0;
-
-  @media (min-width: 500px) {
-    width: 30em;
-  }
 `

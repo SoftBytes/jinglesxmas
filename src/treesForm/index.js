@@ -25,6 +25,8 @@ class TreesForm extends React.Component {
       areaSurcharge: 0,
       postCode: null,
       deliveryDate: null,
+      isFormValid: true,
+      formErrorMessage: null,
     }
 
     this.selectTree = this.selectTree.bind(this)
@@ -66,7 +68,7 @@ class TreesForm extends React.Component {
     if (deliveryDate && deliveryDate.day() % 6 === 0) {
       dateSurcharge = WEEKEND_SURCHARGE 
     } 
-    
+
     return tree.price + additinalItemsPrice + dateSurcharge + areaSurcharge
   }
 
@@ -83,11 +85,19 @@ class TreesForm extends React.Component {
     const availableDates = postCodeEnum ? postCodeEnum.zone.availableDates : []
     const areaSurcharge = postCodeEnum ? postCodeEnum.zone.price : 0
 
+    const { deliveryDate } = this.state
+    let newDeliveryDate = deliveryDate
+    // if deliveryDate is selected, but not in avaiable dates, set to null
+    if (deliveryDate && !availableDates.find(d => d === deliveryDate.date())){
+      newDeliveryDate = null
+    }
+
     this.setState((state) => ({ 
       ...state,
       postCode,
       areaSurcharge,
       availableDates,
+      deliveryDate: newDeliveryDate,
       total: this.getTotal({ areaSurcharge }),
     }))
   }
@@ -133,6 +143,22 @@ class TreesForm extends React.Component {
     e.preventDefault();
     console.log("submit");
 
+    const { 
+      checkedItemsSet, 
+      selectedTree,
+      deliveryDate,
+      postCode,
+    } = this.state
+
+    if (!postCode || !deliveryDate) {
+      this.setState((state) => ({ 
+        ...state,
+        isFormValid: false,
+        formErrorMessage: "Please enter a valid PostCode and select a delivery date"
+      }))
+      return
+    }
+
     fetch('/checkout', {
         method: 'POST',
         body: JSON.stringify({tree: this.state.selectedTree.name})
@@ -140,7 +166,7 @@ class TreesForm extends React.Component {
         console.log(response)
         return response.json();
       });
-}
+  }
 
   render() {
     const { 
@@ -150,6 +176,9 @@ class TreesForm extends React.Component {
       disabledItemsSet, 
       selectedTree,
       availableDates,
+      deliveryDate,
+      isFormValid,
+      formErrorMessage,
     } = this.state
 
     const treesList = trees.map(tree => (
@@ -200,11 +229,13 @@ class TreesForm extends React.Component {
         <DatesField 
           onDeliveryDateChange={this.onDeliveryDateChange}
           availableDays={availableDates}
+          selectedDate={deliveryDate}
         />
         <hr className={styles.hr}/>
-        <button className={styles.cta}>
+        <button className={styles.cta} disabled={!isFormValid}>
             {`Buy for $${total}`}
         </button>
+        <p>{formErrorMessage}</p>
       </form>
     )
   }
