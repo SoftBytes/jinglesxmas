@@ -6,6 +6,7 @@ export const ADDITIONAL_ITEMS = [{
         label: 'Cinco Stand',
         price: 45,
         large: {
+          name: 'largecincostand',
           label: 'Large Cinco Stand',
           price: 60,
         },

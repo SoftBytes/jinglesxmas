@@ -179,6 +179,7 @@ class TreesForm extends React.Component {
       postCode,
       areaSurcharge,
       dateSurcharge,
+      total
     } = this.state
 
     if (!this.isFormValid({ deliveryDate, postCode })) {
@@ -198,11 +199,12 @@ class TreesForm extends React.Component {
 
     const requestBody = {
       tree: selectedTree.name,
-      deliveryDate: deliveryDate.date(),
-      postCode: postCode,
       additionalItems: additionalItems,
-      areaSurcharge: areaSurcharge || AREA_SURCHARGE,
-      weekendSurcharge: dateSurcharge | WEEKEND_SURCHARGE
+      postCode: postCode,
+      deliveryDate: deliveryDate.date(),
+      areaSurcharge: areaSurcharge && AREA_SURCHARGE,
+      weekendSurcharge: dateSurcharge && WEEKEND_SURCHARGE,
+      total: total,
     }
 
     console.dir(JSON.stringify(requestBody))
