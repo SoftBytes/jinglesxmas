@@ -15,22 +15,17 @@ export default class PostCodeInput extends React.Component {
 
     handleChange = (event) => {
       const number = Number(event.target.value)
+      const { onPostCodeChange } = this.props
       if (isNaN(number)) {
         return
       } 
 
       const valid = (number/1000 | 0) === 3
-
-      if (valid) {
-        const { onPostCodeChange } = this.props
-        onPostCodeChange(number)
-      }
-
+      onPostCodeChange(number, valid)
       this.setState({ 
         value: number,
         valid,
       })
-
     }
   
     render() {

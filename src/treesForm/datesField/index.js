@@ -1,8 +1,7 @@
-
 import React from 'react'
 import PropTypes from 'prop-types'
 import { DayPickerSingleDateController } from 'react-dates'
-import moment, { Moment } from 'moment'
+import moment from 'moment'
 import * as styles from './styles'
 
 export default class DatesField extends React.Component {
@@ -50,7 +49,6 @@ export default class DatesField extends React.Component {
 
   componentDidUpdate(prevProps) {
     if (this.props.deliveryDate !== prevProps.deliveryDate) {
-      debugger
       this.setState({ 
         date: this.props.deliveryDate
       })
@@ -100,6 +98,6 @@ export default class DatesField extends React.Component {
   DatesField.propTypes = {
     onDeliveryDateChange: PropTypes.func.isRequired,
     availableDays: PropTypes.array,
-    deliveryDate: PropTypes.instanceOf(Moment)
+    deliveryDate: PropTypes.shape(),
   }
   
