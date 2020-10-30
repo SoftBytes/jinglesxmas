@@ -75,8 +75,12 @@ export const cta = css`
     background-color: ${CTA};
   }
 
+  :disabled{
+    background-color: #aaa;
+  }
+
   @media (min-width: 768px) {
-    margin: 1em auto 0;
+    margin: 1em auto;
     width: 12em;
   }
 `

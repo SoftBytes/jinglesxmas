@@ -3,10 +3,14 @@ import TreeTile from './treeTile'
 import Checkbox from './checkbox'
 import DatesField from './datesField'
 import PostCodeInput from './postCodeInput'
-import * as styles from './styles'
 import { TREES, LARGE_TREE_NAME } from './trees'
 import { ADDITIONAL_ITEMS, STAND_KEY } from './additionalItems'
-import { POSTCODES, WEEKEND_SURCHARGE } from './zones'
+import {  
+  WEEKEND_SURCHARGE, 
+  AREA_SURCHARGE, 
+  fetchPostCodesFromJson
+} from './zones'
+import * as styles from './styles'
 
 class TreesForm extends React.Component {
 
@@ -15,6 +19,7 @@ class TreesForm extends React.Component {
 
     const defaultTree = TREES[0] || {}
     const defaultAdditionalSelection = ADDITIONAL_ITEMS[0] || {}
+    const postcodes = fetchPostCodesFromJson()
 
     this.state = {
       trees: TREES,
@@ -22,11 +27,12 @@ class TreesForm extends React.Component {
       checkedItemsSet: new Set([defaultAdditionalSelection]),
       disabledItemsSet: new Set(),
       total: defaultTree.price + defaultAdditionalSelection.price,
+      postcodes,
       areaSurcharge: 0,
       postCode: null,
       deliveryDate: null,
       isFormValid: true,
-      formErrorMessage: null,
+      formErrorMessage: "Please enter a valid PostCode and select a delivery date",
     }
 
     this.selectTree = this.selectTree.bind(this)
@@ -68,24 +74,26 @@ class TreesForm extends React.Component {
     if (deliveryDate && deliveryDate.day() % 6 === 0) {
       dateSurcharge = WEEKEND_SURCHARGE 
     } 
+    const areaPrice = areaSurcharge && AREA_SURCHARGE
 
-    return tree.price + additinalItemsPrice + dateSurcharge + areaSurcharge
+    return tree.price + additinalItemsPrice + dateSurcharge + areaPrice
   }
 
   onDeliveryDateChange(deliveryDate) { 
     this.setState((state) => ({ 
       ...state,
       deliveryDate,
+      isFormValid: this.isFormValid({ deliveryDate }),
       total: this.getTotal({ deliveryDate }),
     }))
   }
 
   onPostCodeChange(postCode) { 
-    const postCodeEnum = POSTCODES.find(c => c.code === postCode)
+    const { deliveryDate, postcodes } = this.state
+    const postCodeEnum = postcodes.find(c => c.code === postCode)
     const availableDates = postCodeEnum ? postCodeEnum.zone.availableDates : []
-    const areaSurcharge = postCodeEnum ? postCodeEnum.zone.price : 0
+    const areaSurcharge = postCodeEnum ? postCodeEnum.zone.areaSurcharge : false
 
-    const { deliveryDate } = this.state
     let newDeliveryDate = deliveryDate
     // if deliveryDate is selected, but not in avaiable dates, set to null
     if (deliveryDate && !availableDates.find(d => d === deliveryDate.date())){
@@ -97,6 +105,7 @@ class TreesForm extends React.Component {
       postCode,
       areaSurcharge,
       availableDates,
+      isFormValid: this.isFormValid({ deliveryDate: newDeliveryDate, postCode }),
       deliveryDate: newDeliveryDate,
       total: this.getTotal({ areaSurcharge }),
     }))
@@ -139,9 +148,17 @@ class TreesForm extends React.Component {
     return <>{item.label} <span>{`+$${item.price}`}</span></>
   }
 
+  isFormValid () {
+    const { 
+      deliveryDate,
+      postCode,
+    } = this.state
+    return postCode && deliveryDate
+  }
+
   onSubmit(e) {
-    e.preventDefault();
-    console.log("submit");
+    e.preventDefault()
+    console.log("submit")
 
     const { 
       checkedItemsSet, 
@@ -150,11 +167,10 @@ class TreesForm extends React.Component {
       postCode,
     } = this.state
 
-    if (!postCode || !deliveryDate) {
+    if (!this.isFormValid()) {
       this.setState((state) => ({ 
         ...state,
         isFormValid: false,
-        formErrorMessage: "Please enter a valid PostCode and select a delivery date"
       }))
       return
     }
@@ -235,7 +251,7 @@ class TreesForm extends React.Component {
         <button className={styles.cta} disabled={!isFormValid}>
             {`Buy for $${total}`}
         </button>
-        <p>{formErrorMessage}</p>
+        <p>{!isFormValid && formErrorMessage}</p>
       </form>
     )
   }
