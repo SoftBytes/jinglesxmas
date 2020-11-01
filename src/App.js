@@ -22,9 +22,6 @@ const PrimaryLayout = () => (
     </div>
     <TreesForm></TreesForm>
     <div className={styles.car}></div>
-    <div className={styles.subTextGreen}>
-      Delivery starts in December. Additional area surcharge may apply for remote suburbs and CBD.
-    </div>
   </div>
 )
 

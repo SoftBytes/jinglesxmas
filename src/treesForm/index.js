@@ -109,6 +109,10 @@ class TreesForm extends React.Component {
       newDeliveryDate = null
     }
 
+    if (!postCodeEnum) {
+      
+    }
+
     this.setState((state) => ({ 
       ...state,
       postCode,
@@ -199,11 +203,13 @@ class TreesForm extends React.Component {
 
     const requestBody = {
       tree: selectedTree.name,
-      additionalItems: additionalItems,
-      postCode: postCode,
-      deliveryDate: deliveryDate.date(),
-      areaSurcharge: areaSurcharge && AREA_SURCHARGE,
-      weekendSurcharge: dateSurcharge && WEEKEND_SURCHARGE,
+      addOns: additionalItems,
+      postcode: postCode,
+      deliveryDay: deliveryDate.date(),
+      // areaSurcharge: areaSurcharge && AREA_SURCHARGE,
+      // weekendSurcharge: dateSurcharge && WEEKEND_SURCHARGE,
+      areaSurcharge: !!areaSurcharge,
+      weekendSurcharge: !!dateSurcharge,
       total: total,
     }
 
@@ -215,7 +221,7 @@ class TreesForm extends React.Component {
       }).then(function(response) {
         console.log(response)
         return response.json();
-      });
+      })
   }
 
   render() {
@@ -228,6 +234,7 @@ class TreesForm extends React.Component {
       deliveryDate,
       isFormValid,
       formErrorMessage,
+      postcodes,
     } = this.state
 
     const treesList = trees.map(tree => (
@@ -270,9 +277,11 @@ class TreesForm extends React.Component {
         </div>
         <hr className={styles.hr}/>
         <div className={styles.subTextGreen}>
-          Delivery starts in December. Additional weekend and area surcharge applies.
+          Delivery starts in December. Please note! Additional surcharge may be applied for CBD, remote suburbs and weekend deliveries.
         </div>
-        <PostCodeInput onPostCodeChange={this.onPostCodeChange}/>
+        <PostCodeInput 
+          postcodes={postcodes}
+          onPostCodeChange={this.onPostCodeChange}/>
         <DatesField 
           onDeliveryDateChange={this.onDeliveryDateChange}
           availableDays={availableDates}

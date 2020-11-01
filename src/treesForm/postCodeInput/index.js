@@ -10,7 +10,9 @@ export default class PostCodeInput extends React.Component {
     this.state = {
       value: '',
       valid: true,
+      isMissingPostcode: false,
     }
+    this.handleChange = this.handleChange.bind(this)
   }
 
     handleChange = (event) => {
@@ -21,15 +23,22 @@ export default class PostCodeInput extends React.Component {
       } 
 
       const valid = (number/1000 | 0) === 3
+
+      let isMissingPostcode = false
+      if(valid) {
+        const { postcodes } = this.props
+        isMissingPostcode = !postcodes.find(c => c.code === number)
+      }
       onPostCodeChange(number, valid)
       this.setState({ 
         value: number,
         valid,
+        isMissingPostcode,
       })
     }
   
     render() {
-      const { valid, value } = this.state
+      const { valid, value, isMissingPostcode } = this.state
   
       return (
         <>
@@ -42,8 +51,16 @@ export default class PostCodeInput extends React.Component {
             name="title" value={value} 
             onChange={this.handleChange.bind(this)}
             />
-          {!valid && <p>Please enter a valid Victorian postcode.</p>}
-        </>
+          {!valid && <p className={styles.error}>Please enter a valid Victorian postcode.</p>}
+          {isMissingPostcode && (
+            <p className={styles.error}>
+              {`Oops! It looks like ${value} is out of our delivery range, please call us on `}
+                <a href="tel:0411399607">0411399607</a>
+              {` for delivery quote to your area.`}
+          </p>
+          )}
+
+          </>
       );
     }
   }

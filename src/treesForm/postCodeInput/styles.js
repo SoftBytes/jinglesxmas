@@ -24,4 +24,15 @@ export const label = css`
 
 `
 
+export const error = css`
+  font-size: 0.9em;
+  line-height: 1.6em;
+  margin-top: .5em;
+
+  a {
+    font-size: 0.9em;
+    line-height: 1.6em;
+  }
+`
+
 

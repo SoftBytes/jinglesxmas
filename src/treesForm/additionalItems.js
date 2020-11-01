@@ -29,4 +29,10 @@ export const ADDITIONAL_ITEMS = [{
         label: 'Disposal',
         price: 15,
       },
+      {
+        name: 'preservative',
+        key: 'preservative',
+        label: 'Preservative',
+        price: 5,
+      },
 ]
