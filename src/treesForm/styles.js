@@ -67,7 +67,7 @@ export const boxWpap = css`
 
 export const cta = css`
   width: 100%;
-  margin: 0.4em auto 0;
+  margin: 1em auto;
   background-color: ${CTA};
   font-size: 1em;
 
@@ -89,4 +89,9 @@ export const subTextGreen = css`
   color: ${DARK_GREEN};
   width: 100%;
   margin: 1em auto 0;
+  font-size: 1.1em;
+
+  @media (min-width: 768px) {
+    font-size: 1em;
+  }
 `

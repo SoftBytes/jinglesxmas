@@ -183,7 +183,7 @@ class TreesForm extends React.Component {
       postCode,
       areaSurcharge,
       dateSurcharge,
-      total
+      total,
     } = this.state
 
     if (!this.isFormValid({ deliveryDate, postCode })) {
@@ -220,7 +220,8 @@ class TreesForm extends React.Component {
         body: JSON.stringify(requestBody)
       }).then(function(response) {
         console.log(response)
-        return response.json();
+        window.location.pathname = '/checkout'
+        return response.json()
       })
   }
 
@@ -264,7 +265,9 @@ class TreesForm extends React.Component {
     return (
       <form 
         className={styles.boxWpap} 
-        method="post"     
+        name="trees"  
+        // method="post"  
+        // action="/checkout" 
         onSubmit={this.onSubmit}
       >
         <h2 className={styles.h2}>Order now</h2>
@@ -288,7 +291,11 @@ class TreesForm extends React.Component {
           deliveryDate={deliveryDate}
         />
         <hr className={styles.hr}/>
-        <button className={styles.cta} disabled={!isFormValid}>
+        <button 
+          type="submit"
+          className={styles.cta} 
+          disabled={!isFormValid}
+        >
             {`Buy for $${total}`}
         </button>
         <p>{!isFormValid && formErrorMessage}</p>

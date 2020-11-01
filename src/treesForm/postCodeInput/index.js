@@ -11,6 +11,7 @@ export default class PostCodeInput extends React.Component {
       value: '',
       valid: true,
       isMissingPostcode: false,
+      areaSurcharge: false,
     }
     this.handleChange = this.handleChange.bind(this)
   }
@@ -25,20 +26,24 @@ export default class PostCodeInput extends React.Component {
       const valid = (number/1000 | 0) === 3
 
       let isMissingPostcode = false
+      const { postcodes } = this.props
+      const postCodeEnum = postcodes.find(c => c.code === number) 
       if(valid) {
-        const { postcodes } = this.props
-        isMissingPostcode = !postcodes.find(c => c.code === number)
+        isMissingPostcode = !postCodeEnum
       }
+      const areaSurcharge = postCodeEnum ? postCodeEnum.zone.areaSurcharge : false
+
       onPostCodeChange(number, valid)
       this.setState({ 
         value: number,
         valid,
         isMissingPostcode,
+        areaSurcharge,
       })
     }
   
     render() {
-      const { valid, value, isMissingPostcode } = this.state
+      const { valid, value, isMissingPostcode, areaSurcharge } = this.state
   
       return (
         <>
@@ -51,6 +56,7 @@ export default class PostCodeInput extends React.Component {
             name="title" value={value} 
             onChange={this.handleChange.bind(this)}
             />
+          {areaSurcharge && <p className={styles.error}>Delivery area surcharge of $25 has been applied for selected postcode</p>}
           {!valid && <p className={styles.error}>Please enter a valid Victorian postcode.</p>}
           {isMissingPostcode && (
             <p className={styles.error}>

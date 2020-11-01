@@ -27,11 +27,21 @@ export const label = css`
 export const error = css`
   font-size: 0.9em;
   line-height: 1.6em;
-  margin-top: .5em;
+  margin: 1em 0;
+
+  @media (min-width: 768px) {
+    font-size: 0.9em;
+    margin: .5em 0;
+  }
 
   a {
     font-size: 0.9em;
     line-height: 1.6em;
+    font-weight: 600;
+
+    @media (min-width: 768px) {
+      font-weight: 500;
+    }
   }
 `
 
