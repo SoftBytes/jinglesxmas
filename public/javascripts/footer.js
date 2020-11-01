@@ -25,6 +25,5 @@ fetch("./footer.html")
             replaceText('footer-phone', phone, `tel:${phone}`);
             replaceText('footer-email', email, `mailto:${email}`);
             replaceText('footer-address', address);
-            replaceText('footer-terms', termsAndConditions);
         }) 
     })
