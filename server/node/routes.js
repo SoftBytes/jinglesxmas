@@ -52,7 +52,6 @@ router.get('/terms', (req, res) => {
 router.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, '../../public', 'index.html'));
 });
-
 /**
  * Stripe integration to accept all types of payments with 3 POST endpoints.
  *
