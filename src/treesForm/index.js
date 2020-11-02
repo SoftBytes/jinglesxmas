@@ -11,6 +11,7 @@ import {
   fetchPostCodesFromJson
 } from './zones'
 import * as styles from './styles'
+import { formatDate } from 'tough-cookie'
 
 class TreesForm extends React.Component {
 
@@ -41,6 +42,7 @@ class TreesForm extends React.Component {
     this.onSubmit = this.onSubmit.bind(this)
     this.onDeliveryDateChange = this.onDeliveryDateChange.bind(this)
     this.onPostCodeChange = this.onPostCodeChange.bind(this)
+    this.isFormValid = this.isFormValid.bind(this)
   }
 
   selectTree(tree) {
@@ -78,11 +80,13 @@ class TreesForm extends React.Component {
 
   onDeliveryDateChange(deliveryDate) { 
     const dateSurcharge = deliveryDate && (deliveryDate.day() % 6 === 0)
+    const { postCode } = this.state
+
     this.setState((state) => ({ 
       ...state,
       deliveryDate,
       dateSurcharge, 
-      isFormValid: this.isFormValid({ deliveryDate }),
+      isFormValid: this.isFormValid({ deliveryDate, postCode }),
       total: this.getTotal({ dateSurcharge }),
     }))
   }
@@ -162,8 +166,8 @@ class TreesForm extends React.Component {
   }
 
   isFormValid ({ 
-    deliveryDate = this.state.deliveryDate, 
-    postCode = this.state.postCode,
+    deliveryDate, 
+    postCode,
   }) {
     return !!postCode && !!deliveryDate
   }
@@ -173,7 +177,23 @@ class TreesForm extends React.Component {
     return item.key === STAND_KEY && selectedTree.name === LARGE_TREE_NAME
   }
 
+  /*returns a string day of month with formatted like this:
+  / '01'  - zero prepending if number is one digit
+  / '10'
+  */
+  formatDate(date) {
+    return date ? ('0' + date.date()).slice(-2) : ''
+  }
+
   onSubmit(e) {
+    if(!this.isFormValid(this.state)){
+      e.preventDefault()
+      this.setState((state) => ({ 
+        ...state,
+        isFormValid: false,
+      }))
+      return 
+    }
 
     console.log(e.target.tree.value)
     console.log(e.target.addOns.value)
@@ -182,6 +202,7 @@ class TreesForm extends React.Component {
     console.log(e.target.areaSurcharge.value)
     console.log(e.target.weekendSurcharge.value)
     console.log(e.target.total.value)
+
   }
 
   render() {
@@ -242,7 +263,7 @@ class TreesForm extends React.Component {
         <input name="tree" value={selectedTree.name || ''} type="hidden"/>
         <input name="addOns" value={additionalItemsNames || []} type="hidden"/>
         <input name="postcode" value={postCode || 0} type="hidden"/>
-        <input name="deliveryDay" value={deliveryDate ? deliveryDate.date() : 0} type="hidden"/>
+        <input name="deliveryDay" value={this.formatDate(deliveryDate)} type="hidden"/>
         <input name="areaSurcharge" value={!!areaSurcharge || false} type="hidden"/>
         <input name="weekendSurcharge" value={!!dateSurcharge || false} type="hidden"/>
         <input name="total" value={total || 0} type="hidden"/>

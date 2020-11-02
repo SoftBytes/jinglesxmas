@@ -61,6 +61,7 @@ export const specialOffer = css`
   @media (min-width: 500px) {
     width: 28em;
     padding: 0.5em 0.5em 0.5em 3em;
+    cursor: pointer;
   }
 
   @media (min-width: 768px) {
@@ -92,6 +93,7 @@ export const subTextRed = css`
   @media (min-width: 480px) {
     font-size: 1.1em;
     width: 28em;
+    cursor: pointer;
   }
 
   @media (min-width: 768px) {
@@ -127,6 +129,7 @@ export const h1 = css`
 
   @media (min-width: 500px) {
     font-size: 4em;
+    cursor: pointer;
   }
 
   @media (min-width: 768px) {
