@@ -174,55 +174,14 @@ class TreesForm extends React.Component {
   }
 
   onSubmit(e) {
-    e.preventDefault()
 
-    const { 
-      checkedItemsSet, 
-      selectedTree,
-      deliveryDate,
-      postCode,
-      areaSurcharge,
-      dateSurcharge,
-      total,
-    } = this.state
-
-    if (!this.isFormValid({ deliveryDate, postCode })) {
-      this.setState((state) => ({ 
-        ...state,
-        isFormValid: false,
-      }))
-      return
-    }
-
-    const additionalItems = [...checkedItemsSet].map(i => {
-      if (this.isAddedItemLargeStand(i)){
-        return i.large.name
-      }
-      return i.name
-    })
-
-    const requestBody = {
-      tree: selectedTree.name,
-      addOns: additionalItems,
-      postcode: postCode,
-      deliveryDay: deliveryDate.date(),
-      // areaSurcharge: areaSurcharge && AREA_SURCHARGE,
-      // weekendSurcharge: dateSurcharge && WEEKEND_SURCHARGE,
-      areaSurcharge: !!areaSurcharge,
-      weekendSurcharge: !!dateSurcharge,
-      total: total,
-    }
-
-    console.dir(JSON.stringify(requestBody))
-
-    fetch('/checkout', {
-        method: 'POST',
-        body: JSON.stringify(requestBody)
-      }).then(function(response) {
-        console.log(response)
-        window.location.pathname = '/checkout'
-        return response.json()
-      })
+    console.log(e.target.tree.value)
+    console.log(e.target.addOns.value)
+    console.log(e.target.postcode.value)
+    console.log(e.target.deliveryDay.value)
+    console.log(e.target.areaSurcharge.value)
+    console.log(e.target.weekendSurcharge.value)
+    console.log(e.target.total.value)
   }
 
   render() {
@@ -236,6 +195,10 @@ class TreesForm extends React.Component {
       isFormValid,
       formErrorMessage,
       postcodes,
+      postCode,
+      selectedTree,
+      areaSurcharge,
+      dateSurcharge,
     } = this.state
 
     const treesList = trees.map(tree => (
@@ -261,15 +224,29 @@ class TreesForm extends React.Component {
         </div>
     )})
     
+    const additionalItemsNames = [...checkedItemsSet].map(i => {
+      if (this.isAddedItemLargeStand(i)){
+        return i.large.name
+      }
+      return i.name
+    })
 
     return (
       <form 
         className={styles.boxWpap} 
         name="trees"  
-        // method="post"  
-        // action="/checkout" 
+        method="post"  
+        action="/checkout" 
         onSubmit={this.onSubmit}
       >
+        <input name="tree" value={selectedTree.name || ''} type="hidden"/>
+        <input name="addOns" value={additionalItemsNames || []} type="hidden"/>
+        <input name="postcode" value={postCode || 0} type="hidden"/>
+        <input name="deliveryDay" value={deliveryDate ? deliveryDate.date() : 0} type="hidden"/>
+        <input name="areaSurcharge" value={!!areaSurcharge || false} type="hidden"/>
+        <input name="weekendSurcharge" value={!!dateSurcharge || false} type="hidden"/>
+        <input name="total" value={total || 0} type="hidden"/>
+
         <h2 className={styles.h2}>Order now</h2>
         <hr className={styles.hr}/>
         <div className={styles.tilesWpap}>
