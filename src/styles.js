@@ -32,7 +32,7 @@ export const specialOffer = css`
   position: relative;
 
   span {
-    font-size: 0.8em;
+    font-size: 1em;
     line-height: 1.2em;
     color: ${YELLOW};
   }
@@ -83,14 +83,15 @@ export const subTextRed = css`
   font-size: 0.9em;
 
   @media (min-width: 360px) {
-    margin: 0 auto 8em;
+    margin: 10em auto 1em;
   }
 
   @media (min-width: 400px) {
-    margin: 0 auto 9em;
+    margin: 12em auto 1em;
   }
 
   @media (min-width: 480px) {
+    margin: 0 auto 9em;
     font-size: 1.1em;
     width: 28em;
     cursor: pointer;
@@ -100,7 +101,7 @@ export const subTextRed = css`
     width: 50vw;
     font-size: 1.7vw;
     line-height: 2.2vw;
-    margin: 0 auto 25vw;
+    margin: 0 auto 22vw;
   }
 `
 
@@ -117,22 +118,21 @@ export const subTextGreen = css`
 
 export const h1 = css`
   margin: 3vw auto 1vw;
-  // background-image: url("./images/jingles-logo_mobile.png"); 
-  // height: 20vw;
-  // max-height: 44px;
-  // max-width: 94px;
 
   background-image: url("./images/jingles-logo.png"); 
   background-repeat: no-repeat;
   height: 95px;
   width: 244px;
-
   cursor: pointer;
 
   @media (min-width: 768px) {
+    background-image: url("./images/jingles-logo_big.png"); 
+    background-repeat: no-repeat;
+    background-size: contain;
     height: 12vw;
-    max-height: 95px;
-    max-width: 244px;
+    width: 30vw;
+    max-height: 190px;
+    max-width: 486px;
   }
 `
 
