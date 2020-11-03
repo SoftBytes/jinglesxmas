@@ -72,14 +72,12 @@ class TreesForm extends React.Component {
         return sum + item.price 
       }, 0
     )
-    const areaPrice = areaSurcharge
-    const datePrice = dateSurcharge && WEEKEND_SURCHARGE
 
-    return tree.price + additinalItemsPrice + datePrice + areaPrice
+    return tree.price + additinalItemsPrice + dateSurcharge + areaSurcharge
   }
 
   onDeliveryDateChange(deliveryDate) { 
-    const dateSurcharge = deliveryDate && (deliveryDate.day() % 6 === 0)
+    const dateSurcharge = deliveryDate && (deliveryDate.day() % 6 === 0) ? WEEKEND_SURCHARGE : 0
     const { postCode } = this.state
 
     this.setState((state) => ({ 
@@ -237,6 +235,7 @@ class TreesForm extends React.Component {
       postcodes,
       selectedTree,
       areaSurcharge,
+      dateSurcharge,
     } = this.state
 
     const treesList = trees.map(tree => (
@@ -296,6 +295,11 @@ class TreesForm extends React.Component {
           availableDays={availableDates}
           deliveryDate={deliveryDate}
         />
+        {!!dateSurcharge && (
+          <p className={styles.surchargeMessage}>
+            {`Weekend surcharge of $${dateSurcharge} has been applied`}
+          </p>
+        )}
         <hr className={styles.hr}/>
         <button 
           type="submit"
