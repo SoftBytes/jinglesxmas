@@ -7,11 +7,11 @@ import { TREES, LARGE_TREE_NAME } from './trees'
 import { ADDITIONAL_ITEMS, STAND_KEY } from './additionalItems'
 import {  
   WEEKEND_SURCHARGE, 
-  AREA_SURCHARGE, 
+  REMOTE_AREA_SURCHARGE, 
+  CBD_SURCHARGE, 
   fetchPostCodesFromJson
 } from './zones'
 import * as styles from './styles'
-import { formatDate } from 'tough-cookie'
 
 class TreesForm extends React.Component {
 
@@ -72,7 +72,7 @@ class TreesForm extends React.Component {
         return sum + item.price 
       }, 0
     )
-    const areaPrice = areaSurcharge && AREA_SURCHARGE
+    const areaPrice = areaSurcharge
     const datePrice = dateSurcharge && WEEKEND_SURCHARGE
 
     return tree.price + additinalItemsPrice + datePrice + areaPrice
@@ -130,16 +130,16 @@ class TreesForm extends React.Component {
 
   onAdditionalItemsChange(e) {
     const { checkedItemsSet, disabledItemsSet } = this.state
-    const { name : itemName , checked : isChecked} = e.target
+    const { name : itemKey, checked: isChecked } = e.target
 
-    const item = ADDITIONAL_ITEMS.find(i => i.name === itemName)
+    const item = ADDITIONAL_ITEMS.find(i => i.key === itemKey)
 
     if (!isChecked) {
       checkedItemsSet.delete(item)
     } else {
       checkedItemsSet.add(item)
     }
-    this.updateInstallation(isChecked, itemName, checkedItemsSet, disabledItemsSet)
+    this.updateInstallation(isChecked, itemKey, checkedItemsSet, disabledItemsSet)
 
     this.setState((state) => ({ 
       ...state,
@@ -148,11 +148,11 @@ class TreesForm extends React.Component {
     }));
   }
 
-  updateInstallation(isChecked, itemName, checkedItemsSet, disabledItemsSet) {
-    if (!itemName.includes(STAND_KEY)) { 
+  updateInstallation(isChecked, itemKey, checkedItemsSet, disabledItemsSet) {
+    if (!itemKey.includes(STAND_KEY)) { 
       return
     }
-    const installation = ADDITIONAL_ITEMS.find(i => i.name === 'installation')
+    const installation = ADDITIONAL_ITEMS.find(i => i.key === 'installation')
     if (isChecked) {
       disabledItemsSet.delete(installation)
     } else {
@@ -185,6 +185,27 @@ class TreesForm extends React.Component {
     return date ? ('0' + date.date()).slice(-2) : ''
   }
 
+  formatAdditionalItemsNames(checkedItemsSet) {
+    const additionalItemsNames = [...checkedItemsSet].map(i => {
+      if (this.isAddedItemLargeStand(i)){
+        return i.large.name
+      }
+      return i.name
+    })
+    return additionalItemsNames || []
+  }
+
+  /* "Remote" | "CBD" | "" */
+  formatArea(areaSurcharge) {
+    if(areaSurcharge === REMOTE_AREA_SURCHARGE) {
+      return 'Remote'
+    }
+    if(areaSurcharge === CBD_SURCHARGE) {
+      return 'CBD'
+    }
+    return ''
+  }
+
   onSubmit(e) {
     if(!this.isFormValid(this.state)){
       e.preventDefault()
@@ -199,10 +220,8 @@ class TreesForm extends React.Component {
     console.log(e.target.addOns.value)
     console.log(e.target.postcode.value)
     console.log(e.target.deliveryDay.value)
-    console.log(e.target.areaSurcharge.value)
-    console.log(e.target.weekendSurcharge.value)
+    console.log(e.target.area.value)
     console.log(e.target.total.value)
-
   }
 
   render() {
@@ -216,10 +235,8 @@ class TreesForm extends React.Component {
       isFormValid,
       formErrorMessage,
       postcodes,
-      postCode,
       selectedTree,
       areaSurcharge,
-      dateSurcharge,
     } = this.state
 
     const treesList = trees.map(tree => (
@@ -235,7 +252,7 @@ class TreesForm extends React.Component {
         <div key={item.key}>
           <label className={styles.checkboxLabel}>
             <Checkbox 
-              name={item.name} 
+              name={item.key} 
               checked={checkedItemsSet.has(item)} 
               disabled={disabledItemsSet.has(item)} 
               onChange={this.onAdditionalItemsChange} 
@@ -244,13 +261,6 @@ class TreesForm extends React.Component {
           </label>
         </div>
     )})
-    
-    const additionalItemsNames = [...checkedItemsSet].map(i => {
-      if (this.isAddedItemLargeStand(i)){
-        return i.large.name
-      }
-      return i.name
-    })
 
     return (
       <form 
@@ -260,12 +270,10 @@ class TreesForm extends React.Component {
         action="/checkout" 
         onSubmit={this.onSubmit}
       >
-        <input name="tree" value={selectedTree.name || ''} type="hidden"/>
-        <input name="addOns" value={additionalItemsNames || []} type="hidden"/>
-        <input name="postcode" value={postCode || 0} type="hidden"/>
+        <input name="tree" value={selectedTree.key} type="hidden"/>
+        <input name="addOns" value={this.formatAdditionalItemsNames(checkedItemsSet)} type="hidden"/>
         <input name="deliveryDay" value={this.formatDate(deliveryDate)} type="hidden"/>
-        <input name="areaSurcharge" value={!!areaSurcharge || false} type="hidden"/>
-        <input name="weekendSurcharge" value={!!dateSurcharge || false} type="hidden"/>
+        <input name="area" value={this.formatArea(areaSurcharge)} type="hidden"/>
         <input name="total" value={total || 0} type="hidden"/>
 
         <h2 className={styles.h2}>Order now</h2>

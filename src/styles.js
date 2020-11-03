@@ -116,24 +116,21 @@ export const subTextGreen = css`
 `
 
 export const h1 = css`
-  color: ${RED};
-  font-size: 2.2em;
-  font-family: 'Fondamento', cursive;
   margin: 2vw auto 0;
-  overflow: hiddlen;
-  white-space: nowrap;
+  background-image: url("./images/jingleslogo.png"); 
+  // background-size: 30vw; 
+  height: 88px;
+  width: 188px;
 
   @media (min-width: 400px) {
-    font-size: 2.8em;
   }
 
   @media (min-width: 500px) {
-    font-size: 4em;
     cursor: pointer;
   }
 
   @media (min-width: 768px) {
-    font-size: 7vw;
+
   }
 `
 

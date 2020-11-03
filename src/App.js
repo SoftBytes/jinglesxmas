@@ -32,9 +32,8 @@ class App extends React.Component {
                <br/>
                <span>including delivery in Melbourne Area during the week.</span>
              </div>
-             <h1 className={styles.h1} onClick={this.scrollToForm}>
-               Jingles Xmas Trees
-             </h1>
+             <div className={styles.h1} onClick={this.scrollToForm}>
+             </div>
              <div className={styles.subTextRed} onClick={this.scrollToForm}>
                Are you looking for a real Christmas tree to make your Christmas spectacular? You just found it! Save with our special offer.
              </div>
