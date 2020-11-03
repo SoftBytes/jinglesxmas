@@ -83,11 +83,11 @@ export const subTextRed = css`
   font-size: 0.9em;
 
   @media (min-width: 360px) {
-    margin: 0 auto 11em;
+    margin: 0 auto 8em;
   }
 
   @media (min-width: 400px) {
-    margin: 0 auto 12em;
+    margin: 0 auto 9em;
   }
 
   @media (min-width: 480px) {
@@ -99,8 +99,8 @@ export const subTextRed = css`
   @media (min-width: 768px) {
     width: 50vw;
     font-size: 1.7vw;
-    line-height: 2vw;
-    margin: 0 auto 26vw;
+    line-height: 2.2vw;
+    margin: 0 auto 25vw;
   }
 `
 
@@ -116,21 +116,23 @@ export const subTextGreen = css`
 `
 
 export const h1 = css`
-  margin: 2vw auto 0;
-  background-image: url("./images/jingleslogo.png"); 
-  // background-size: 30vw; 
-  height: 88px;
-  width: 188px;
+  margin: 3vw auto 1vw;
+  // background-image: url("./images/jingles-logo_mobile.png"); 
+  // height: 20vw;
+  // max-height: 44px;
+  // max-width: 94px;
 
-  @media (min-width: 400px) {
-  }
+  background-image: url("./images/jingles-logo.png"); 
+  background-repeat: no-repeat;
+  height: 95px;
+  width: 244px;
 
-  @media (min-width: 500px) {
-    cursor: pointer;
-  }
+  cursor: pointer;
 
   @media (min-width: 768px) {
-
+    height: 12vw;
+    max-height: 95px;
+    max-width: 244px;
   }
 `
 
