@@ -16,6 +16,7 @@ export const postcode = css`
 
 export const label = css`
   color: ${CTA};
+  font-family: 'IM Fell DW Pica SC', serif;
   box-sizing: border-box;
   margin: 1em;
   width: 6em;
@@ -26,17 +27,17 @@ export const label = css`
 
 export const error = css`
   color: ${DARK_GREEN};
-  font-size: 0.9em;
+  font-size: 1.1em;
   line-height: 1.6em;
   margin: 1em 0;
 
   @media (min-width: 768px) {
-    font-size: 0.9em;
+    font-size: 1.1em;
     margin: .5em 0;
   }
 
   a {
-    font-size: 0.9em;
+    font-size: 1.1em;
     line-height: 1.6em;
     font-weight: 600;
 

@@ -28,6 +28,7 @@ export const checkboxLabel = css`
   white-space: nowrap;
   font-size: 1.2em;
   line-height: 1.8em;
+  font-weight: 500;
 
   span {
     color: #666;
@@ -45,6 +46,7 @@ export const hr = css`
 
 export const h2 = css`
   color: ${CTA};
+  font-family: 'IM Fell DW Pica SC', serif;
   text-transform: none;
   line-height: 2em;
   margin: 0;
@@ -69,7 +71,7 @@ export const cta = css`
   width: 100%;
   margin: 1em auto;
   background-color: ${CTA};
-  font-size: 1em;
+  font-size: 1.2em;
 
   :active, :hover, :visited, :focus{
     background-color: ${CTA};
@@ -92,7 +94,7 @@ export const subTextGreen = css`
   font-size: 1.1em;
 
   @media (min-width: 768px) {
-    font-size: 1em;
+    font-size: 1.2em;
   }
 `
 
@@ -103,6 +105,6 @@ export const surchargeMessage = css`
   font-size: 1em;
 
   @media (min-width: 768px) {
-    font-size: 0.9em;
+    font-size: 1.2em;
   }
 `

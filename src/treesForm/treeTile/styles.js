@@ -18,7 +18,7 @@ export const treeTile = css`
   background-position: left 1em bottom .8em;
 
   @media (min-width: 375px) {
-    font-size: 0.8em;
+    font-size: 0.9em;
   }
 
   @media (min-width: 768px) {

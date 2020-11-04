@@ -36,6 +36,7 @@ export const calendar = css`
 
     label {
         color: ${CTA};
+        font-family: 'IM Fell DW Pica SC', serif;
         margin: .6em auto;
         font-size: 1.2em;
     }

@@ -23,15 +23,20 @@ export const pageWpap = css`
 export const specialOffer = css`
   color: ${YELLOW};
   background-color: ${RED};
-  width: 90%;
+  font-weight: 600;
+
+  // font-family: 'IM Fell DW Pica SC', serif;
+  width: 100%;
   margin: 2vw auto 0;
-  padding: 0.4em 0.4em 0.4em 4em;
-  font-size: 0.8em;
-  line-height: 1.2em;
+  padding: 0.4em 0.4em 0.4em 3em;
+  font-size: 1em;
+  line-height: 1.3em;
   border: 1px solid #fff;
   position: relative;
 
   span {
+    font-weight: 600;
+    // font-family: 'IM Fell DW Pica SC', serif;
     font-size: 1em;
     line-height: 1.2em;
     color: ${YELLOW};
@@ -67,53 +72,58 @@ export const specialOffer = css`
 
   @media (min-width: 768px) {
     width: 25em;
-    font-size: 1.6vw;
-    line-height: 2vw;
-    padding: 0.5em 0.5em 0.5em 3.6em;
+    font-size: 1.8vw;
+    line-height: 2.3vw;
+    padding: 0.3em 0.3em 0.3em 3.6em;
 
     span {
-      font-size: 0.75em;
+      font-size: 0.85em;
     }
   }
 `
 
 export const subTextRed = css`
   color: ${RED};
+  // font-family: 'Cookie', cursive;
+  // font-family: 'IM Fell DW Pica SC', serif;
+  font-style: italic;
+  font-weight: 500;
   width: 100%;
-  margin: 11em auto 1em;
-  font-size: 0.9em;
+  margin: 6em auto 1em;
+  font-size: 1.4em;
 
   @media (min-width: 360px) {
-    margin: 10em auto 1em;
+    margin: 6em auto 1em;
   }
 
   @media (min-width: 400px) {
-    margin: 12em auto 1em;
+    margin: 7em auto 1em;
   }
 
   @media (min-width: 480px) {
     margin: 0 auto 9em;
-    font-size: 1.1em;
-    width: 28em;
+    font-size: 1.4em;
+    width: 20em;
     cursor: pointer;
   }
 
   @media (min-width: 768px) {
     width: 50vw;
-    font-size: 1.7vw;
+    font-size: 1.9vw;
     line-height: 2.2vw;
-    margin: 0 auto 22vw;
+    margin: 0 auto 20vw;
   }
 `
 
 export const subTextGreen = css`
   color: ${DARK_GREEN};
+  font-family: 'Cookie', cursive;
   width: 100%;
   margin: 1em auto 0;
-  font-size: 0.9em;
+  font-size: 1.4em;
 
   @media (min-width: 500px) {
-    width: 32em;
+    width: 20em;
   }
 `
 
