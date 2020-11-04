@@ -183,6 +183,10 @@ class TreesForm extends React.Component {
     return date ? ('0' + date.date()).slice(-2) : ''
   }
 
+  formatDeliveryPrice(areaSurcharge = 0, dateSurcharge = 0) {
+    return areaSurcharge + dateSurcharge
+  }
+
   formatAdditionalItemsNames(checkedItemsSet) {
     const additionalItemsNames = [...checkedItemsSet].map(i => {
       if (this.isAddedItemLargeStand(i)){
@@ -219,7 +223,9 @@ class TreesForm extends React.Component {
     console.log(e.target.postcode.value)
     console.log(e.target.deliveryDay.value)
     console.log(e.target.area.value)
+    console.log(e.target.deliveryPrice.value)
     console.log(e.target.total.value)
+    debugger
   }
 
   render() {
@@ -273,6 +279,7 @@ class TreesForm extends React.Component {
         <input name="addOns" value={this.formatAdditionalItemsNames(checkedItemsSet)} type="hidden"/>
         <input name="deliveryDay" value={this.formatDate(deliveryDate)} type="hidden"/>
         <input name="area" value={this.formatArea(areaSurcharge)} type="hidden"/>
+        <input name="deliveryPrice" value={this.formatDeliveryPrice(areaSurcharge, dateSurcharge)} type="hidden"/>
         <input name="total" value={total || 0} type="hidden"/>
 
         <h2 className={styles.h2}>Order now</h2>
