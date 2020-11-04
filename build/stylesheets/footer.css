@@ -66,6 +66,14 @@
     font-weight: normal;
     margin: 0;
   }
+
+  .footer-distributed .poweredBy{
+    background-image: url("/images/powered.png"); 
+    background-size: contain;
+    width: 229px;
+    height: 75px;
+    margin-left: 6em;
+  }
   
   /* Footer Center */
   
@@ -179,6 +187,10 @@
       .footer-distributed .footer-right i {
         font-size: 22px;
         }
+
+      .footer-distributed .poweredBy{
+        margin: 0 auto;
+      }
   
   }
   

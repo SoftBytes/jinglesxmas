@@ -39,22 +39,23 @@ export const specialOffer = css`
 
   ::after {
     content: "";
-    background-image: url("./images/bells.png"); 
-    background-repeat: no-repeat;
     position: absolute;
-    background-size: 110px;
+    background-image: url("./images/mult_mobile.png"); 
+    // background-image: url("./images/bells.png"); 
+    background-repeat: no-repeat;
+    background-size: contain; 
     top:-20px;
-    left: -40px;
-    height: 130px;
-    width: 110px;
+    left: -64px;
+    height: 140px;
+    width: 116px;
 
     @media (min-width: 768px) {
-      background-image: url("./images/bells_desktop.png"); 
-      background-size: 15vw; 
-      top:-2.4vw;
-      left: -10vw;
-      height: 18vw; 
-      width: 15vw; 
+      background-image: url("./images/mult.png"); 
+      // background-image: url("./images/bells_desktop.png"); 
+      top:-3vw;
+      left: -12vw;
+      height: 23vw; 
+      width: 19vw; 
     }
   }
 
@@ -65,10 +66,10 @@ export const specialOffer = css`
   }
 
   @media (min-width: 768px) {
-    width: 24em;
+    width: 25em;
     font-size: 1.6vw;
     line-height: 2vw;
-    padding: 0.5em 0.5em 0.5em 2.2em;
+    padding: 0.5em 0.5em 0.5em 3.6em;
 
     span {
       font-size: 0.75em;
