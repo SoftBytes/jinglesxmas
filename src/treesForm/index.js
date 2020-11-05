@@ -54,7 +54,7 @@ class TreesForm extends React.Component {
         ...state, 
         trees: trees, 
         selectedTree : tree,
-        total: this.getTotal({tree:tree}) 
+        total: this.getTotal({ tree }) 
       }
     })
   }
@@ -66,7 +66,7 @@ class TreesForm extends React.Component {
     areaSurcharge = this.state.areaSurcharge,
   }) {
     const additinalItemsPrice = checkedItems.reduce((sum, item) => { 
-        if (this.isAddedItemLargeStand(item)) {
+        if (this.isAddedItemLargeStand(item, tree)) {
           return sum + item.large.price 
         }
         return sum + item.price 
@@ -170,8 +170,7 @@ class TreesForm extends React.Component {
     return !!postCode && !!deliveryDate
   }
 
-  isAddedItemLargeStand(item) {
-    const { selectedTree } = this.state
+  isAddedItemLargeStand(item, selectedTree) {
     return item.key === STAND_KEY && selectedTree.name === LARGE_TREE_NAME
   }
 
@@ -188,8 +187,9 @@ class TreesForm extends React.Component {
   }
 
   formatAdditionalItemsNames(checkedItemsSet) {
+    const { selectedTree } = this.state
     const additionalItemsNames = [...checkedItemsSet].map(i => {
-      if (this.isAddedItemLargeStand(i)){
+      if (this.isAddedItemLargeStand(i, selectedTree)){
         return i.large.name
       }
       return i.name
@@ -250,7 +250,7 @@ class TreesForm extends React.Component {
 
     const checkboxes = ADDITIONAL_ITEMS.map(item => {
       let labelText = this.getLabelText( 
-        this.isAddedItemLargeStand(item) ? item.large : item
+        this.isAddedItemLargeStand(item, selectedTree) ? item.large : item
       )
 
       return (
