@@ -25,9 +25,9 @@ export const TreeTile = ({ tree = {}, selectTree }) => {
           onClick={() => {selectTree(tree)}}
       >
         <label className={styles.title}>{name}</label>
-        <div>{height}</div>
+        <div className={styles.treeHeight} >{height}</div>
         <hr className={styles.hr}/>
-        <div>{`$${price}`}</div>
+        <div className={styles.price} >{`$${price}`}</div>
       </div>
     </>
   )

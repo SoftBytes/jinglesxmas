@@ -315,7 +315,9 @@ class TreesForm extends React.Component {
         >
             {`Buy for $${total}`}
         </button>
-        <p>{!isFormValid && formErrorMessage}</p>
+        {!isFormValid && (
+          <p className={styles.surchargeMessage}>{formErrorMessage}</p>
+        )}
       </form>
     )
   }

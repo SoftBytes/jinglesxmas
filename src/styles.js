@@ -4,9 +4,12 @@ import { RED, DARK_GREEN, YELLOW } from './colorConsts'
 export const pageWpap = css`
   &&& {
     @media (min-width: 768px) {
-      font-size: 20px;
-      line-height: 26px;
+      font-size: 22px;
+      line-height: 28px;
     }
+  }
+  * {
+    font-family: 'Abhaya Libre', serif;
   }
   padding: 20px;
   text-align: center;

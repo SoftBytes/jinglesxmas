@@ -26,9 +26,13 @@ export const checkboxLabel = css`
   color: ${RED};
   overflow: visible;
   white-space: nowrap;
-  font-size: 1.2em;
-  line-height: 1.8em;
-  font-weight: 500;
+  font-size: 1.4em;
+  line-height: 1.6em;
+  font-weight: 600;
+
+  @media (min-width: 768px) {
+    font-weight: 500;
+  }
 
   span {
     color: #666;
@@ -91,10 +95,10 @@ export const subTextGreen = css`
   color: ${DARK_GREEN};
   width: 100%;
   margin: 1em auto 0;
-  font-size: 1.1em;
+  font-size: 1.2em;
 
   @media (min-width: 768px) {
-    font-size: 1.2em;
+    font-size: 1.3em;
   }
 `
 
@@ -102,9 +106,9 @@ export const surchargeMessage = css`
   color: ${DARK_GREEN};
   width: 100%;
   margin: 1em auto;
-  font-size: 1em;
+  font-size: 1.2em;
 
   @media (min-width: 768px) {
-    font-size: 1.2em;
+    font-size: 1.3em;
   }
 `

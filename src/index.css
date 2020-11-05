@@ -4,7 +4,6 @@
 
 * {
   /* font-family: Open Sans; */
-  font-family: 'Abhaya Libre', serif;
   box-sizing: border-box;
 }
 
@@ -15,14 +14,14 @@ html {
 body {
   height: 100%;
   margin: 0;
-  font-family: 'Abhaya Libre', "Open Sans", "Helvetica Neue", sans-serif !important;
+  font-family: "Open Sans", "Helvetica Neue", sans-serif !important;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   background-color: #f2f2f6;
   display: block !important;
   width: 100%;
-  font-size: 16px;
-  line-height: 24px; 
+  font-size: 18px !important;
+  line-height: 26px; 
   color: #3e4543;
   box-sizing: border-box;
 }
@@ -40,7 +39,7 @@ h1.loading {
   text-align: center;
   font-weight: 500;
   color:red;
-  font-family: 'Fondamento', cursive;
+  font-family: 'Fondamento';
 }
 
 h2 {
