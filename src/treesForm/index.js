@@ -163,18 +163,18 @@ class TreesForm extends React.Component {
 
   checkInstallation(isChecked, itemKey, checkedItemsSet) {
     // debugger
-    if (itemKey === 'installation' && !isChecked) {
+    if (itemKey === INSTALLATION_KEY && !isChecked) {
       return false
     }
-    if (itemKey === 'cincostand' && isChecked) {
+    if (itemKey === STAND_KEY && isChecked) {
       return false
     }
-    if (itemKey === 'installation' && isChecked) {
-      const stand = [...checkedItemsSet].find(i => i.key === 'cincostand')
+    if (itemKey === INSTALLATION_KEY && isChecked) {
+      const stand = [...checkedItemsSet].find(i => i.key === STAND_KEY)
       return !stand
     } 
-    if (itemKey === 'cincostand' && !isChecked) {
-      const installation = [...checkedItemsSet].find(i => i.key === 'installation')
+    if (itemKey === STAND_KEY && !isChecked) {
+      const installation = [...checkedItemsSet].find(i => i.key === INSTALLATION_KEY)
       return !!installation
     }
     return null
@@ -299,7 +299,7 @@ class TreesForm extends React.Component {
         this.isAddedItemLargeStand(item, selectedTree) ? item.large : item
       )
 
-      const isShowInstallationMeggage = item.key === INSTALLATION_KEY && isShowInstallationMessage
+      const isShowMessage = item.key === INSTALLATION_KEY && isShowInstallationMessage
       return (
         <div key={item.key}>
           <label className={styles.checkboxLabel}>
@@ -311,9 +311,9 @@ class TreesForm extends React.Component {
             />
             {labelText}
           </label>
-          {isShowInstallationMeggage && (
+          {isShowMessage && (
             <p className={styles.installationMessage}>
-              {'Please note! We install only in stands supplied by us to returning customers.'}
+              {'Please note we only install into stands that have been supplied by us.'}
             </p>
           )}
         </div>

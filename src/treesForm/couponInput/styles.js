@@ -7,7 +7,7 @@ export const postcode = css`
   font-size: 1.2em;
   line-height: 1.2em;
   padding: .4em 1.2em .3em .6em;
-  width: 7em;
+  width: 8em;
   max-width: 80%;
   box-sizing: border-box;
   margin: 1em auto .4em;

@@ -104,7 +104,7 @@ export const subTextGreen = css`
 export const surchargeMessage = css`
   color: ${DARK_GREEN};
   width: 100%;
-  margin: 1em auto;
+  margin: 1em auto 0;
   font-size: 1.2em;
 
   @media (min-width: 768px) {
@@ -114,7 +114,7 @@ export const surchargeMessage = css`
 
 export const installationMessage = css`
   color: ${DARK_GREEN};
-  width: 90%;
+  width: 100%;
   margin: 0 auto;
   text-align: center;
   font-size: 1.2em;
