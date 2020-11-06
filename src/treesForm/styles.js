@@ -13,13 +13,8 @@ export const tilesWpap = css`
 `
 
 export const checkboxesWpap = css`
-  margin: 0 auto 1em;
+  margin: 0 0 1em;
   text-align: left;
-  width: 11em;
-
-  @media (min-width: 420px) {
-    width: 9em;
-  }
 `
 
 export const checkboxLabel = css`
@@ -29,9 +24,13 @@ export const checkboxLabel = css`
   font-size: 1.4em;
   line-height: 1.6em;
   font-weight: 600;
+  width: 11em;
+  margin: 0 0 0 4.5em;
 
   @media (min-width: 768px) {
+    margin: 0 0 0 8em;
     font-weight: 500;
+    width: 9em;
   }
 
   span {
@@ -106,6 +105,18 @@ export const surchargeMessage = css`
   color: ${DARK_GREEN};
   width: 100%;
   margin: 1em auto;
+  font-size: 1.2em;
+
+  @media (min-width: 768px) {
+    font-size: 1.3em;
+  }
+`
+
+export const installationMessage = css`
+  color: ${DARK_GREEN};
+  width: 90%;
+  margin: 0 auto;
+  text-align: center;
   font-size: 1.2em;
 
   @media (min-width: 768px) {
