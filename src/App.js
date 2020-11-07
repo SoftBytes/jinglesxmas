@@ -32,12 +32,14 @@ class App extends React.Component {
                <br/>
                <span>including delivery in Melbourne Area during the week.</span>
              </div>
+             <div className={styles.subTextRed} onClick={this.scrollToForm}>
+                HAVE YOU FOUND A CHEAPER CHRISTMAS TREE ELSEWHERE? 
+                PLEASE CONTACT US ON 0411399607 AND WE WILL BEAT IT BY 5%!
+             </div>
              <div className={styles.h1} onClick={this.scrollToForm}>
              </div>
-             <div className={styles.subTextRed} onClick={this.scrollToForm}>
-               Are you looking for a real Christmas tree to make your Christmas spectacular? You just found it! Save with our special offer.
-             </div>
              <div className={styles.subTextGreen}>
+               Are you looking for a real Christmas tree to make your Christmas spectacular? 
                Our trees are sustainably grown on a farm in Daylesford (VIC).
                With delivery, setup and disposal, you get it all covered.
              </div>

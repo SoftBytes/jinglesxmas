@@ -39,6 +39,7 @@ class TreesForm extends React.Component {
       postCode: null,
       deliveryDate: null,
       isFormValid: true,
+      discount: {value: 0},
       formErrorMessage: "Please enter a valid PostCode and select a delivery date",
     }
 
@@ -70,7 +71,7 @@ class TreesForm extends React.Component {
     checkedItems = [...this.state.checkedItemsSet],
     dateSurcharge = this.state.dateSurcharge,
     areaSurcharge = this.state.areaSurcharge,
-    isDiscount = this.state.isDiscount,
+    discountValue = this.state.discount.value,
   }) {
     const additinalItemsPrice = checkedItems.reduce((sum, item) => { 
         if (this.isAddedItemLargeStand(item, tree)) {
@@ -79,7 +80,7 @@ class TreesForm extends React.Component {
         return sum + item.price 
       }, 0
     )
-    const treePrice = isDiscount ? tree.discounted.price : tree.price
+    const treePrice = tree.price - discountValue
 
     return treePrice + additinalItemsPrice + dateSurcharge + areaSurcharge
   }
@@ -130,11 +131,12 @@ class TreesForm extends React.Component {
     }))
   }
 
-  onCouponChange(isDiscount) {
+  onCouponChange(discount) {
+    const discountValue = discount ? discount.value : 0
     this.setState((state) => ({ 
       ...state,
-      isDiscount,
-      total: this.getTotal({ isDiscount }),
+      discount, 
+      total: this.getTotal({ discountValue }),
     }))
   }
 
@@ -221,8 +223,8 @@ class TreesForm extends React.Component {
     return areaSurcharge + dateSurcharge
   }
 
-  formatTree(tree, isDiscount) {
-    return isDiscount ? tree.discounted.key : tree.key
+  formatTree(tree, discount) {
+    return (discount && discount.value) ? discount.productKeys[tree.name] : tree.key
   }
 
   formatAdditionalItemsNames(checkedItemsSet) {
@@ -281,7 +283,7 @@ class TreesForm extends React.Component {
       selectedTree,
       areaSurcharge,
       dateSurcharge,
-      isDiscount,
+      discount,
       isShowInstallationMessage,
     } = this.state
 
@@ -290,7 +292,7 @@ class TreesForm extends React.Component {
         tree={tree} 
         key={tree.name} 
         selectTree={this.selectTree}
-        isDiscount={isDiscount}
+        discount={discount}
       />
     ))
 
@@ -327,7 +329,7 @@ class TreesForm extends React.Component {
         action="/checkout" 
         onSubmit={this.onSubmit}
       >
-        <input name="tree" value={this.formatTree(selectedTree, isDiscount)} type="hidden"/>
+        <input name="tree" value={this.formatTree(selectedTree, discount)} type="hidden"/>
         <input name="addOns" value={this.formatAdditionalItemsNames(checkedItemsSet)} type="hidden"/>
         <input name="deliveryDay" value={this.formatDate(deliveryDate)} type="hidden"/>
         <input name="area" value={this.formatArea(areaSurcharge)} type="hidden"/>

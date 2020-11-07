@@ -21,15 +21,22 @@ export const checkboxLabel = css`
   color: ${RED};
   overflow: visible;
   white-space: nowrap;
-  font-size: 1.4em;
-  line-height: 1.6em;
+  font-size: 1.1em;
+  line-height: 1.4em;
   font-weight: 600;
   width: 11em;
-  margin: 0 0 0 4.5em;
+  margin: 0 0 0 6em;
+
+  @media (min-width: 400px) {
+    font-size: 1.4em;
+    line-height: 1.6em;
+    margin: 0 0 0 4.5em;
+  }
 
   @media (min-width: 768px) {
     margin: 0 0 0 8em;
     font-weight: 500;
+    line-height: 1.4em;
     width: 9em;
   }
 
@@ -49,12 +56,11 @@ export const hr = css`
 
 export const h2 = css`
   color: ${CTA};
-  font-family: 'IM Fell DW Pica SC', serif;
+  font-family: 'IM Fell DW Pica SC', 'Open sans', serif !important;
   text-transform: none;
-  line-height: 2em;
-  margin: 0;
+  line-height: 1.1em;
+  margin: 0 auto 0.4em;
   font-weight: 500;
-
 `
 
 export const boxWpap = css`
@@ -65,7 +71,7 @@ export const boxWpap = css`
   margin: 1em auto 0;
 
   @media (min-width: 768px) {
-    width: 500px;
+    width: 540px;
   }
   
 `
@@ -76,11 +82,11 @@ export const cta = css`
   background-color: ${CTA};
   font-size: 1.2em;
 
-  :active, :hover, :visited, :focus{
+  :active, :hover, :visited, :focus {
     background-color: ${CTA};
   }
 
-  :disabled{
+  :disabled {
     background-color: #aaa;
   }
 
@@ -93,22 +99,26 @@ export const cta = css`
 export const subTextGreen = css`
   color: ${DARK_GREEN};
   width: 100%;
-  margin: 1em auto 0;
-  font-size: 1.2em;
+  margin: .8em auto 0;
+  font-size: 1.1em;
+  line-height: 1.2em;
 
   @media (min-width: 768px) {
-    font-size: 1.3em;
+    font-size: 1.1em;
+    line-height: 1.2em;
   }
 `
 
 export const surchargeMessage = css`
   color: ${DARK_GREEN};
   width: 100%;
-  margin: 1em auto 0;
-  font-size: 1.2em;
+  margin: .8em auto 0;
+  font-size: 1.1em;
+  line-height: 1.2em;
 
   @media (min-width: 768px) {
-    font-size: 1.3em;
+    font-size: 1.1em;
+    line-height: 1.2em;
   }
 `
 
@@ -117,9 +127,11 @@ export const installationMessage = css`
   width: 100%;
   margin: 0 auto;
   text-align: center;
-  font-size: 1.2em;
+  font-size: 1.1em;
+  line-height: 1.2em;
 
   @media (min-width: 768px) {
-    font-size: 1.3em;
+    font-size: 1.1em;
+    line-height: 1.2em;
   }
 `

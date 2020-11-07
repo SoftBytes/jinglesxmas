@@ -61,7 +61,7 @@ export const title = css`
   }
 
   @media (min-width: 768px) {
-    font-size: 1.5em;
+    font-size: 1.4em;
   }
 
 `

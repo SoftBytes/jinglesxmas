@@ -1,9 +1,9 @@
 
 import React from 'react'
 import PropTypes from 'prop-types'
+import { discounts } from '../trees'
 import * as styles from './styles'
 
-export const DISCOUNT_CODE = 'JINGLES2020'
 
 export default class CouponInput extends React.Component {
   
@@ -12,6 +12,7 @@ export default class CouponInput extends React.Component {
     this.state = {
       value: '',
       isDiscount: false, 
+      discount: null,
     }
     this.handleChange = this.handleChange.bind(this)
   }
@@ -20,17 +21,19 @@ export default class CouponInput extends React.Component {
       const coupon = event.target.value
       const { onCouponChange } = this.props
 
-      const isDiscount = coupon === DISCOUNT_CODE
-      onCouponChange(isDiscount)
+      const discount = (discounts || []).find(d => d.code === coupon) || null
+      const isDiscount = !!discount
+      onCouponChange(discount)
 
       this.setState({ 
         value: coupon,
         isDiscount,
+        discount,
       })
     }
   
     render() {
-      const { value, isDiscount } = this.state
+      const { value, isDiscount, discount } = this.state
   
       return (
         <>
@@ -44,7 +47,7 @@ export default class CouponInput extends React.Component {
           />
           {isDiscount && (
             <p className={styles.error}>
-              Discount of $20 has been applied
+              {`Discount of $${discount.value} has been applied.`}
             </p>
           )}
 
