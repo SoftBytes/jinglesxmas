@@ -99,9 +99,13 @@ class TreesForm extends React.Component {
   }
 
   onPostCodeChange(postCode, valid) { 
-    const { deliveryDate, postcodes, postCode: prevPostCode } = this.state
+    const { 
+      deliveryDate, 
+      postcodes, 
+      dateSurcharge,
+     } = this.state
 
-    if (!valid && prevPostCode) { 
+    if (!valid) { 
       this.setState((state) => ({ 
         ...state,
         postCode: null,
@@ -115,9 +119,12 @@ class TreesForm extends React.Component {
     const areaSurcharge = postCodeEnum ? postCodeEnum.zone.areaSurcharge : false
 
     let newDeliveryDate = deliveryDate
+    let newDateSurcharge = dateSurcharge
+
     // if deliveryDate is selected, but not in avaiable dates, set to null
     if (deliveryDate && !availableDates.find(d => d === deliveryDate.date())){
       newDeliveryDate = null
+      newDateSurcharge = null
     }
 
     this.setState((state) => ({ 
@@ -127,7 +134,8 @@ class TreesForm extends React.Component {
       availableDates,
       isFormValid: this.isFormValid({ deliveryDate: newDeliveryDate, postCode }),
       deliveryDate: newDeliveryDate,
-      total: this.getTotal({ areaSurcharge }),
+      dateSurcharge: newDateSurcharge,
+      total: this.getTotal({ areaSurcharge, dateSurcharge }),
     }))
   }
 
@@ -357,7 +365,7 @@ class TreesForm extends React.Component {
         />
         {!!dateSurcharge && (
           <p className={styles.surchargeMessage}>
-            {`Weekend surcharge of $${dateSurcharge} has been applied`}
+            {`Weekend surcharge of $${dateSurcharge} has been applied.`}
           </p>
         )}
         <CouponInput 

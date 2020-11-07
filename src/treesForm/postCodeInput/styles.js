@@ -28,8 +28,8 @@ export const label = css`
 
 export const error = css`
   color: ${DARK_GREEN};
-  font-size: 1.2em;
-  line-height: 1.6em;
+  font-size: 1.1em;
+  line-height: 1.4em;
   margin: 1em 0;
 
   @media (min-width: 768px) {
@@ -38,13 +38,11 @@ export const error = css`
     margin: .5em 0;
   }
 
-  a {
-    font-size: 1.2em;
-    line-height: 1.6em;
-    font-weight: 600;
+  * {
+    font-size: 1.1em;
+    line-height: 1.4em;
 
     @media (min-width: 768px) {
-      font-weight: 500;
       font-size: 1.1em;
       line-height: 1.2em;
     }

@@ -30,10 +30,10 @@ export const specialOffer = css`
 
   // font-family: 'IM Fell DW Pica SC', serif;
   width: 100%;
-  margin: 0 auto 0;
-  padding: 0.4em 0.4em 0.4em 3em;
+  margin: -.6em auto 0;
+  padding: 0.2em 0.4em 0.2em 3em;
   font-size: 1em;
-  line-height: 1.3em;
+  line-height: 1.1em;
   border: 1px solid #fff;
   position: relative;
 
@@ -41,7 +41,7 @@ export const specialOffer = css`
     font-weight: 600;
     // font-family: 'IM Fell DW Pica SC', serif;
     font-size: 1em;
-    line-height: 1.2em;
+    line-height: 1.1em;
     color: ${YELLOW};
   }
 
@@ -51,7 +51,7 @@ export const specialOffer = css`
     background-image: url("./images/mult_mobile.png"); 
     background-repeat: no-repeat;
     background-size: contain; 
-    top:-20px;
+    top: -10px;
     left: -64px;
     height: 140px;
     width: 116px;
@@ -87,21 +87,22 @@ export const specialOffer = css`
 export const subTextRed = css`
   color: ${RED};
   font-weight: 500;
-  width: 100%;
+  width: 90%;
   margin: .2em auto 1em;
   font-size: .8em;
   line-height: 1em;
   letter-spacing: 1px;
 
   @media (min-width: 400px) {
-    font-size: 1em;
-    line-height: 1.2em;
+    width: 100%;
+    font-size: 0.9em;
+    line-height: 1.1em;
     cursor: pointer;
   }
 
   @media (min-width: 480px) {
     margin: 0 auto 1em;
-    font-size: 1.4em;
+    font-size: 1.2em;
     width: 20em;
   }
 
@@ -131,7 +132,7 @@ export const subTextGreen = css`
 `
 
 export const h1 = css`
-  margin: 3vw auto 20vw;
+  margin: 3vw auto 26vw;
 
   background-image: url("./images/jingles-logo.png"); 
   background-repeat: no-repeat;
