@@ -11,8 +11,7 @@ export default class CouponInput extends React.Component {
     super(props)
     this.state = {
       value: '',
-      isDiscount: false, 
-      discount: null,
+      discount: {},
     }
     this.handleChange = this.handleChange.bind(this)
   }
@@ -21,19 +20,17 @@ export default class CouponInput extends React.Component {
       const coupon = event.target.value
       const { onCouponChange } = this.props
 
-      const discount = (discounts || []).find(d => d.code === coupon) || null
-      const isDiscount = !!discount
+      const discount = discounts.find(d => d.code === coupon)
       onCouponChange(discount)
 
       this.setState({ 
         value: coupon,
-        isDiscount,
         discount,
       })
     }
   
     render() {
-      const { value, isDiscount, discount } = this.state
+      const { value, discount } = this.state
   
       return (
         <>
@@ -45,14 +42,13 @@ export default class CouponInput extends React.Component {
             name="coupon" value={value} 
             onChange={this.handleChange.bind(this)}
           />
-          {isDiscount && (
+          {!!(discount && discount.value) && (
             <p className={styles.error}>
               {`Discount of $${discount.value} has been applied.`}
             </p>
           )}
-
-          </>
-      );
+        </>
+      )
     }
   }
   

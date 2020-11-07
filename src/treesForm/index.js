@@ -39,7 +39,7 @@ class TreesForm extends React.Component {
       postCode: null,
       deliveryDate: null,
       isFormValid: true,
-      discount: {value: 0},
+      discount: {},
       formErrorMessage: "Please enter a valid PostCode and select a delivery date",
     }
 
@@ -71,7 +71,7 @@ class TreesForm extends React.Component {
     checkedItems = [...this.state.checkedItemsSet],
     dateSurcharge = this.state.dateSurcharge,
     areaSurcharge = this.state.areaSurcharge,
-    discountValue = this.state.discount.value,
+    discount = this.state.discount,
   }) {
     const additinalItemsPrice = checkedItems.reduce((sum, item) => { 
         if (this.isAddedItemLargeStand(item, tree)) {
@@ -80,7 +80,7 @@ class TreesForm extends React.Component {
         return sum + item.price 
       }, 0
     )
-    const treePrice = tree.price - discountValue
+    const treePrice = tree.price - ((discount && discount.value) || 0)
 
     return treePrice + additinalItemsPrice + dateSurcharge + areaSurcharge
   }
@@ -132,11 +132,10 @@ class TreesForm extends React.Component {
   }
 
   onCouponChange(discount) {
-    const discountValue = discount ? discount.value : 0
     this.setState((state) => ({ 
       ...state,
       discount, 
-      total: this.getTotal({ discountValue }),
+      total: this.getTotal({ discount: discount || {} }),
     }))
   }
 
@@ -259,13 +258,13 @@ class TreesForm extends React.Component {
       return 
     }
 
-    console.log(e.target.tree.value)
-    console.log(e.target.addOns.value)
-    console.log(e.target.postcode.value)
-    console.log(e.target.deliveryDay.value)
-    console.log(e.target.area.value)
-    console.log(e.target.deliveryPrice.value)
-    console.log(e.target.total.value)
+    console.log('tree', e.target.tree.value)
+    console.log('addOns', e.target.addOns.value)
+    console.log('postcode', e.target.postcode.value)
+    console.log('deliveryDay', e.target.deliveryDay.value)
+    console.log('area', e.target.area.value)
+    console.log('deliveryPrice', e.target.deliveryPrice.value)
+    console.log('total', e.target.total.value)
     debugger
   }
 
