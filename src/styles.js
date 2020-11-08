@@ -121,18 +121,29 @@ export const subTextGreen = css`
   // font-family: 'Cookie', cursive;
   width: 100%;
   margin: 1em auto 0;
-  font-size: 1.1em;
-  line-height: 1.1em;
+  font-size: 20px;
+  line-height: 22px;
+
+  .desktopOnly {
+    display: none;
+  }
 
   @media (min-width: 500px) {
-    width: 34em;
+    width: 32em;
     font-size: 0.9em;
     line-height: 1.1em;
+
+    .desktopOnly {
+      display: inline;
+      color: ${DARK_GREEN};
+      font-size: 1em;
+      line-height: 1.1em;
+    }
   }
 `
 
 export const h1 = css`
-  margin: 3vw auto 26vw;
+  margin: 3vw auto 28vw;
 
   background-image: url("./images/jingles-logo.png"); 
   background-repeat: no-repeat;

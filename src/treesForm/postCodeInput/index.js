@@ -58,7 +58,7 @@ export default class PostCodeInput extends React.Component {
           />
           {areaSurcharge && (
             <p className={styles.error}>
-              Delivery area surcharge of ${areaSurcharge} has been applied for selected postcode
+              Delivery area surcharge of ${areaSurcharge} has been applied for selected postcode.
             </p>
           )}
           {!valid && (

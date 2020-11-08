@@ -39,7 +39,9 @@ class App extends React.Component {
              <div className={styles.h1} onClick={this.scrollToForm}>
              </div>
              <div className={styles.subTextGreen}>
-               Are you looking for a real Christmas tree to make your Christmas spectacular? 
+              <span className='desktopOnly'>
+                Are you looking for a real Christmas tree to make your Christmas spectacular? 
+              </span>
                Our trees are sustainably grown on a farm in Daylesford (VIC).
                With delivery, setup and disposal, you get it all covered.
              </div>
