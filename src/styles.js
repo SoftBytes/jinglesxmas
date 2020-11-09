@@ -19,7 +19,7 @@ export const pageWpap = css`
   background-size: 100%;
 
   @media (min-width: 600px) {
-   background-image: url("./images/bg.png"); 
+   background-image: url("./images/bg-desktop.jpg"); 
   }
 `
 
@@ -160,6 +160,10 @@ export const h1 = css`
     max-height: 190px;
     max-width: 486px;
     margin: 3vw auto 24vw;
+  }
+
+  @media (min-width: 1920px) {
+    margin: 3vw auto 30vw;
   }
 `
 
