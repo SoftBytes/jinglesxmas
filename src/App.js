@@ -34,7 +34,7 @@ class App extends React.Component {
              </div>
              <div className={styles.subTextRed} onClick={this.scrollToForm}>
                 HAVE YOU FOUND A CHEAPER CHRISTMAS TREE ELSEWHERE? 
-                PLEASE CONTACT US ON 0411399607 AND WE WILL BEAT IT BY 5%!
+                PLEASE CONTACT US ON <a href="tel:0411399607">0411399607</a> AND WE WILL BEAT IT BY 5%!
              </div>
              <div className={styles.h1} onClick={this.scrollToForm}>
              </div>

@@ -9,7 +9,7 @@ export const treeTile = css`
   border-radius: 6px;
   box-shadow: 2px 2px 2px #ddd;
   text-align: center;
-  font-size: 0.6em;
+  font-size: 1em;
   margin: 0.5em;
 
   background-image: url("./images/tree_card.png"); 

@@ -93,6 +93,13 @@ export const subTextRed = css`
   line-height: 1em;
   letter-spacing: 1px;
 
+  a {
+    color: ${RED};
+    font-weight: 600;
+    font-size: 1em;
+    line-height: 1em;
+    letter-spacing: 1px;
+  }
   @media (min-width: 400px) {
     width: 100%;
     font-size: 0.9em;
@@ -118,11 +125,15 @@ export const subTextRed = css`
 
 export const subTextGreen = css`
   color: ${DARK_GREEN};
-  // font-family: 'Cookie', cursive;
   width: 100%;
   margin: 1em auto 0;
-  font-size: 20px;
-  line-height: 22px;
+  font-size: 16px;
+  line-height: 18px;
+
+  @media (min-width: 400px) {
+    font-size: 20px;
+    line-height: 22px;
+  }
 
   .desktopOnly {
     display: none;

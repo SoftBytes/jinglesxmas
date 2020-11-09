@@ -25,7 +25,7 @@ export const checkboxLabel = css`
   line-height: 1.4em;
   font-weight: 600;
   width: 11em;
-  margin: 0 0 0 6em;
+  margin: 0 0 0 4em;
 
   @media (min-width: 400px) {
     font-size: 1.4em;
@@ -100,8 +100,13 @@ export const subTextGreen = css`
   color: ${DARK_GREEN};
   width: 100%;
   margin: .8em auto 0;
-  font-size: 20px;
-  line-height: 22px;
+  font-size: 16px;
+  line-height: 18px;
+  
+  @media (min-width: 400px) {
+    font-size: 20px;
+    line-height: 22px;
+  }
 
   @media (min-width: 768px) {
     font-size: 1.1em;
@@ -113,8 +118,13 @@ export const surchargeMessage = css`
   color: ${DARK_GREEN};
   width: 100%;
   margin: .8em auto 0;
-  font-size: 20px;
-  line-height: 22px;
+  font-size: 16px;
+  line-height: 18px;
+
+  @media (min-width: 400px) {
+    font-size: 20px;
+    line-height: 22px;
+  }
 
   @media (min-width: 768px) {
     font-size: 1.1em;
@@ -127,8 +137,13 @@ export const installationMessage = css`
   width: 100%;
   margin: 0 auto;
   text-align: center;
-  font-size: 20px;
-  line-height: 22px;
+  font-size: 16px;
+  line-height: 18px;
+
+  @media (min-width: 400px) {
+    font-size: 20px;
+    line-height: 22px;
+  }
 
   @media (min-width: 768px) {
     font-size: 1.1em;

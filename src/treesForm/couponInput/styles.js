@@ -28,9 +28,14 @@ export const label = css`
 
 export const error = css`
   color: ${DARK_GREEN};
-  font-size: 20px;
-  line-height: 22px;
+  font-size: 16px;
+  line-height: 18px;
   margin: 0 0 1em;
+
+  @media (min-width: 400px) {
+    font-size: 20px;
+    line-height: 22px;
+  }
 
   @media (min-width: 768px) {
     font-size: 1.1em;
