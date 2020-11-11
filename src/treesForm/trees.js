@@ -7,10 +7,11 @@ export const LARGE_TREE_NAME = 'Large'
 // Standard Discounted prod_IL2qKR5rBwNHo8 
 // Large Discounted prod_IL30KubFVJZaBg
 
-// prod_ILkB6A8o7ejquA	Standard Tree ($10 off)
-// prod_ILkAMf0WvFetDc	Large Tree ($10 off)
-// prod_ILk9ZailKADbHp	Standard Tree ($5 off)
-// prod_ILk9U5RNPlNgd9	Large Tree ($5 off)
+
+// Large Tree ($5 off) - prod_IMZ4MfdgHl1Arc  
+// Standard Tree ($5 off)  -  prod_IMZQpyUW26xFJu
+// Large Tree ($10 off) - prod_IMZVSevdvYURl4  
+// Standard Tree ($10 off)  -  prod_IMZSHZxRhdKwmc
 
 export const TREES = [{
         name: STANDARD_TREE_NAME,
@@ -37,14 +38,14 @@ export const discounts = [{
     code: 'HAPPY2021',
     value: 10,
     productKeys: {
-        [STANDARD_TREE_NAME] : 'prod_ILkB6A8o7ejquA', 
-        [LARGE_TREE_NAME]: 'prod_ILkAMf0WvFetDc',
+        [STANDARD_TREE_NAME] : 'prod_IMZSHZxRhdKwmc', 
+        [LARGE_TREE_NAME]: 'prod_IMZVSevdvYURl4',
     }
     }, {
     code: 'ELFSGIFT5',
     value: 5,
     productKeys: {
-        [STANDARD_TREE_NAME] :'prod_ILk9ZailKADbHp', 
-        [LARGE_TREE_NAME]: 'prod_ILk9U5RNPlNgd9',
+        [STANDARD_TREE_NAME] :'prod_IMZQpyUW26xFJu', 
+        [LARGE_TREE_NAME]: 'prod_IMZ4MfdgHl1Arc',
     }
     }]
