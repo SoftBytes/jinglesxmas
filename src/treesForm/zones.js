@@ -89,6 +89,5 @@ export const fetchPostCodesFromJson = () => {
             zone: ZONES[`${p.zone}${!!p.surcharge ? p.surcharge : ''}`]
         }
     })
-    console.dir(postcodes)
     return postcodes
 }

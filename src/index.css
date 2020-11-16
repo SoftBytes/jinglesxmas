@@ -76,3 +76,30 @@ button {
   cursor: pointer;
   transition: all 0.15s ease;
 }
+
+.Feed img {
+  width: 20vw;
+  max-width: 300px;
+  margin: 4px;
+}
+
+.Feed {
+  margin: 1em 0 2.6em;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  overflow: hidden;
+}
+
+@media (max-width: 460px) {
+  .Feed {
+    display: block;
+    width: 100%;
+    text-align: center;
+    padding: 0 20px;
+  }
+  .Feed img {
+    margin: 4px 0;
+    width: 100%;
+  }
+}

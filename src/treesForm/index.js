@@ -230,6 +230,13 @@ class TreesForm extends React.Component {
     return areaSurcharge + dateSurcharge
   }
 
+  formatZone(postCode) {
+    const { postcodes } = this.state
+    const postCodeEnum = postcodes.find(c => c.code === postCode)
+    const zone = postCodeEnum ? postCodeEnum.zone.name : null
+    return zone
+  }
+
   formatTree(tree, discount) {
     return (discount && discount.value) ? discount.productKeys[tree.name] : tree.key
   }
@@ -253,7 +260,7 @@ class TreesForm extends React.Component {
     if(areaSurcharge === CBD_SURCHARGE) {
       return 'CBD'
     }
-    return ''
+    return 'Normal'
   }
 
   onSubmit(e) {
@@ -269,6 +276,7 @@ class TreesForm extends React.Component {
     console.log('tree', e.target.tree.value)
     console.log('addOns', e.target.addOns.value)
     console.log('postcode', e.target.postcode.value)
+    console.log('zone', e.target.zone.value)
     console.log('deliveryDay', e.target.deliveryDay.value)
     console.log('area', e.target.area.value)
     console.log('deliveryPrice', e.target.deliveryPrice.value)
@@ -291,6 +299,7 @@ class TreesForm extends React.Component {
       areaSurcharge,
       dateSurcharge,
       discount,
+      postCode,
       isShowInstallationMessage,
     } = this.state
 
@@ -340,6 +349,7 @@ class TreesForm extends React.Component {
         <input name="addOns" value={this.formatAdditionalItemsNames(checkedItemsSet)} type="hidden"/>
         <input name="deliveryDay" value={this.formatDate(deliveryDate)} type="hidden"/>
         <input name="area" value={this.formatArea(areaSurcharge)} type="hidden"/>
+        <input name="zone" value={this.formatZone(postCode)} type="hidden"/>
         <input name="deliveryPrice" value={this.formatDeliveryPrice(areaSurcharge, dateSurcharge)} type="hidden"/>
         <input name="total" value={total || 0} type="hidden"/>
 

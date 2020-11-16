@@ -1,4 +1,5 @@
 import React from 'react'
+import Feed from 'react-instagram-authless-feed'
 import TreesForm from './treesForm'
 import * as styles from './styles'
 
@@ -26,6 +27,7 @@ class App extends React.Component {
     return (
       <>
         {this.state.done ? (
+          <>
            <div className={styles.pageWpap}>
              <div className={styles.specialOffer} onClick={this.scrollToForm}>
                Standard Tree with Cinco stand for $154
@@ -48,6 +50,8 @@ class App extends React.Component {
              <TreesForm></TreesForm>
              <div className={styles.car}></div>
            </div>
+           <Feed userName="jinglesxmastrees" className="Feed" classNameLoading="Loading" limit="4"/>
+        </>
         ) : (
           <h1 className="loading">Jingles Xmas Trees</h1>
         )}
