@@ -73,9 +73,8 @@ export default class PostCodeInput extends React.Component {
               {` for delivery quote to your area.`}
           </p>
           )}
-
           </>
-      );
+      )
     }
   }
   
