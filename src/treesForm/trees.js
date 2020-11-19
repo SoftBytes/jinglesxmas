@@ -27,25 +27,41 @@ export const TREES = [{
     }]
 
 
-export const discounts = [{
-    code: 'JINGLES2020',
-    value: 20,
-    productKeys: { 
-        [STANDARD_TREE_NAME] : 'prod_IL2qKR5rBwNHo8',
-        [LARGE_TREE_NAME]: 'prod_IL30KubFVJZaBg',
-    }
+export const discounts = [
+    {
+        code: 'JINGLES2020',
+        value: 20,
+        productKeys: { 
+            [STANDARD_TREE_NAME] : 'prod_IL2qKR5rBwNHo8',
+            [LARGE_TREE_NAME]: 'prod_IL30KubFVJZaBg',
+            }
     }, {
-    code: 'HAPPY2021',
-    value: 10,
-    productKeys: {
-        [STANDARD_TREE_NAME] : 'prod_IMZSHZxRhdKwmc', 
-        [LARGE_TREE_NAME]: 'prod_IMZVSevdvYURl4',
-    }
+        code: 'HAPPY2021',
+        value: 10,
+        productKeys: {
+            [STANDARD_TREE_NAME] : 'prod_IMZSHZxRhdKwmc', 
+            [LARGE_TREE_NAME]: 'prod_IMZVSevdvYURl4',
+        }
     }, {
-    code: 'ELFSGIFT5',
-    value: 5,
-    productKeys: {
-        [STANDARD_TREE_NAME] :'prod_IMZQpyUW26xFJu', 
-        [LARGE_TREE_NAME]: 'prod_IMZ4MfdgHl1Arc',
+        code: 'ELFSGIFT5',
+        value: 5,
+        productKeys: {
+            [STANDARD_TREE_NAME] :'prod_IMZQpyUW26xFJu', 
+            [LARGE_TREE_NAME]: 'prod_IMZ4MfdgHl1Arc',
+        }
+    }, {
+        code: 'MARINE',
+        value: 5,
+        productKeys: {
+            [STANDARD_TREE_NAME] :'prod_IMZQpyUW26xFJu', 
+            [LARGE_TREE_NAME]: 'prod_IMZ4MfdgHl1Arc',
+        }
+    }, {
+        code: 'NEPEAN',
+        value: 5,
+        productKeys: {
+            [STANDARD_TREE_NAME] :'prod_IMZQpyUW26xFJu', 
+            [LARGE_TREE_NAME]: 'prod_IMZ4MfdgHl1Arc',
+        }
     }
-    }]
+]

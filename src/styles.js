@@ -27,8 +27,6 @@ export const specialOffer = css`
   color: ${YELLOW};
   background-color: ${RED};
   font-weight: 600;
-
-  // font-family: 'IM Fell DW Pica SC', serif;
   width: 100%;
   margin: -.6em auto 0;
   padding: 0.2em 0.4em 0.2em 3em;
@@ -39,7 +37,6 @@ export const specialOffer = css`
 
   span {
     font-weight: 600;
-    // font-family: 'IM Fell DW Pica SC', serif;
     font-size: 1em;
     line-height: 1.1em;
     color: ${YELLOW};

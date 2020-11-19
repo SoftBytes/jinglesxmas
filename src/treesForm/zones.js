@@ -1,3 +1,4 @@
+import moment from 'moment'
 import * as postcodes_json from './zones.json'
 import * as dates_json from './availableDates.json'
 
@@ -71,7 +72,21 @@ export const ZONES = {
     },
 }
 
-
+/**
+ * Checks todays date. 
+ * If it's December, returns a new array with only days after today.
+ * Else returns the initial array without modifying.
+ */
+const getFutureDays = (availableDates) => {
+    const todayMonth = moment().month()
+    //dec=11
+    if (todayMonth !== 11) { 
+        return availableDates
+    }
+    const todayDay = moment().date()
+    const futureAvailableDates = availableDates.filter(d => d > todayDay)
+    return futureAvailableDates
+}
 /**
  * reads postcodes from a Json file.
  * returns an array of postcodes, each element is in form
@@ -90,7 +105,7 @@ export const fetchPostCodesFromJson = () => {
         const datesJson = dates_json.default
         for (let zone in ZONES) {
             const dates = datesJson.find(d => ZONES[zone].name.startsWith(d.zone))
-            ZONES[zone].availableDates = dates ? dates.availableDates : []
+            ZONES[zone].availableDates = dates ? getFutureDays(dates.availableDates) : []
         }
     }
     
