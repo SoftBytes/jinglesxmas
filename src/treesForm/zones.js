@@ -69,7 +69,7 @@ export const ZONES = {
         name: 'W1',
         areaSurcharge: REMOTE_AREA_SURCHARGE,
         availableDates: [],
-    },
+    }
 }
 
 /**
