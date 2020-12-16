@@ -204,6 +204,15 @@ class TreesForm extends React.Component {
   }
 
   getLabelText(item) {
+    if (item.soldOut) {
+      return (
+        <>
+          <span className={styles.soldOut}>{item.label}</span> 
+          <span>{` Sold out`}</span>
+        </>
+
+      )
+    }
     return <>{item.label} <span>{`+$${item.price}`}</span></>
   }
 
@@ -324,7 +333,7 @@ class TreesForm extends React.Component {
             <Checkbox 
               name={item.key} 
               checked={checkedItemsSet.has(item)} 
-              disabled={disabledItemsSet.has(item)} 
+              disabled={disabledItemsSet.has(item) || item.soldOut} 
               onChange={this.onAdditionalItemsChange} 
             />
             {labelText}

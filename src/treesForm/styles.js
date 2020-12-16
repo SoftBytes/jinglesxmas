@@ -53,6 +53,11 @@ export const hr = css`
   border-bottom: 1px solid ${CTA};
 `
 
+export const soldOut = css`
+  text-decoration: line-through;
+  font-size: 1em;
+`
+
 
 export const h2 = css`
   color: ${CTA};

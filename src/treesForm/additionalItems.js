@@ -31,6 +31,7 @@ export const ADDITIONAL_ITEMS = [{
         key: 'wateringkit',
         label: 'Watering Kit',
         price: 25,
+        soldOut: true,
       },
       {
         name: 'prod_IJj8Dz3eLUcKTJ',
@@ -43,5 +44,6 @@ export const ADDITIONAL_ITEMS = [{
         key: 'preservative',
         label: 'Preservative',
         price: 5,
+        soldOut: true,
       },
 ]
