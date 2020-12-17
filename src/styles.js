@@ -120,6 +120,24 @@ export const subTextRed = css`
   }
 `
 
+export const soldOutMessage = css`
+  color: ${RED};
+  font-weight: 500;
+  width: 90%;
+  margin: .2em auto 1em;
+  font-size: .8em;
+  line-height: 1em;
+  letter-spacing: 1px;
+
+  @media (min-width: 768px) {
+    width: 47vw;
+    font-size: 1.5vw;
+    line-height: 1.8vw;
+    font-weight: 600;
+    margin: 1vw auto 2vw;
+  }
+`
+
 export const subTextGreen = css`
   color: ${DARK_GREEN};
   width: 100%;
@@ -172,6 +190,31 @@ export const h1 = css`
 
   @media (min-width: 1920px) {
     margin: 3vw auto 30vw;
+  }
+`
+
+export const h1SoldOut = css`
+  margin: 3vw auto 3vw;
+
+  background-image: url("./images/jingles-logo.png"); 
+  background-repeat: no-repeat;
+  height: 95px;
+  width: 244px;
+  cursor: pointer;
+
+  @media (min-width: 768px) {
+    background-image: url("./images/jingles-logo_big.png"); 
+    background-repeat: no-repeat;
+    background-size: contain;
+    height: 12vw;
+    width: 30vw;
+    max-height: 190px;
+    max-width: 486px;
+    margin: 3vw auto 3vw;
+  }
+
+  @media (min-width: 1920px) {
+    margin: 3vw auto 3vw;
   }
 `
 

@@ -1,6 +1,7 @@
 import React from 'react'
 import Feed from 'react-instagram-authless-feed'
 import TreesForm from './treesForm'
+import CollectionForm from './collectionForm'
 import * as styles from './styles'
 
 class App extends React.Component {
@@ -53,10 +54,26 @@ class App extends React.Component {
  )
 
 
+ const disposeTreeIndex = (
+  <>
+  <div className={styles.pageWpap}>
+    <div className={styles.h1SoldOut}/>
+    <div className={styles.soldOutMessage}>WE ARE CURRENTLY SOLD OUT!</div>
+    <div className={styles.subTextGreen}>
+        We wish you happy holidays and hope to see you next year.
+      </div>
+    <CollectionForm></CollectionForm>
+    <div className={styles.car}></div>
+  </div>
+  <Feed userName="jinglesxmastrees" className="Feed" classNameLoading="Loading" limit="4"/>
+</>
+)
+
     return (
       <>
         {this.state.done ? 
-        orderTreeIndex 
+        disposeTreeIndex 
+       // orderTreeIndex 
           : (
           <h1 className="loading">Jingles Xmas Trees</h1>
         )}
