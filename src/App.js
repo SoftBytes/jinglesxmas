@@ -8,13 +8,14 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      done: undefined
+      done: undefined,
+      isSoldOut: true,  // change this to false to see the tree order form
     };
   }
   componentDidMount() {
     setTimeout(() => {
       this.setState({ done: true })
-    }, 200);
+    }, 20);
   }
 
   scrollToForm() {
@@ -25,6 +26,8 @@ class App extends React.Component {
   }
 
   render() {
+    const { isSoldOut } = this.state
+
     const orderTreeIndex = (
     <>
     <div className={styles.pageWpap}>
@@ -60,7 +63,7 @@ class App extends React.Component {
     <div className={styles.h1SoldOut}/>
     <div className={styles.soldOutMessage}>WE ARE CURRENTLY SOLD OUT!</div>
     <div className={styles.subTextGreen}>
-        We wish you happy holidays and hope to see you next year.
+        We wish you Happy Holidays and hope to see you next year.
       </div>
     <CollectionForm></CollectionForm>
     <div className={styles.car}></div>
@@ -72,11 +75,10 @@ class App extends React.Component {
     return (
       <>
         {this.state.done ? 
-        disposeTreeIndex 
-       // orderTreeIndex 
-          : (
-          <h1 className="loading">Jingles Xmas Trees</h1>
-        )}
+          (isSoldOut ? disposeTreeIndex : orderTreeIndex)
+          : 
+          (<h1 className="loading">Jingles Xmas Trees</h1>)
+        }
       </>
     );
   }

@@ -89,7 +89,8 @@ class CollectionForm extends React.Component {
     postCode,
     phone = this.state.phone,
   }) {
-    return !!postCode && !!deliveryDate && !!phone
+    return !!postCode && !!deliveryDate && 
+           !!phone && phone.startsWith('04') && phone.length === 10
   }
 
   formatDate(date) {

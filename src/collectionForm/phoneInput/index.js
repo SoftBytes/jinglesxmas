@@ -19,6 +19,10 @@ export default class PhoneInput extends React.Component {
       const phone = event.target.value
       const { onCouponChange } = this.props
 
+      if (isNaN(Number(phone))) {
+        return
+      } 
+      
       onCouponChange(phone)
 
       this.setState({ 

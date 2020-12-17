@@ -48,7 +48,7 @@ const getFutureDays = (availableDates) => {
  * returns an array of postcodes, each element is in form
  * {
     code: 3000,
-    zone: ZONES.C1
+    zone: ZONES.C
 }
  */
 export const fetchPostCodesFromJson = () => {
@@ -57,9 +57,13 @@ export const fetchPostCodesFromJson = () => {
     }
     
     const postcodes = postcodes_json.default.map(p => {
+        const zone = ZONES[`${p.zone}`]
         return {
             code: p.postcode,
-            zone: ZONES[`${p.zone}`]
+            zone: {
+                ...zone,
+                availableDates: getFutureDays(zone.availableDates),
+            }
         }
     })
     return postcodes
