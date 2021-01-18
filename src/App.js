@@ -1,16 +1,32 @@
 import React from 'react'
 import Feed from 'react-instagram-authless-feed'
+import { ErrorBoundary } from 'react-error-boundary'
 import TreesForm from './treesForm'
 import CollectionForm from './collectionForm'
 import * as styles from './styles'
 
+/***
+ * 
+ * The index page has three options:
+
+    1) Sales are open
+    2) Sales are closed, collection is open
+    3) Everything closed for the year.
+
+    To change between states you need to update flags in the App.js state
+
+    isSoldOut: true,  // change this to false to see the tree order form
+    isClosedForYear: true, // change this to false to see other states
+ * 
+ */
 class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       done: undefined,
       isSoldOut: true,  // change this to false to see the tree order form
-    };
+      isClosedForYear: true, // change this to false to see other states
+    }
   }
   componentDidMount() {
     setTimeout(() => {
@@ -26,7 +42,13 @@ class App extends React.Component {
   }
 
   render() {
-    const { isSoldOut } = this.state
+    const { isSoldOut, isClosedForYear } = this.state
+
+    const instagramFeed = (
+      <ErrorBoundary FallbackComponent={() => <></>}>
+        <Feed userName="jinglesxmastrees" className="Feed" classNameLoading="Loading" limit="4"/>
+      </ErrorBoundary>
+    )
 
     const orderTreeIndex = (
     <>
@@ -52,30 +74,45 @@ class App extends React.Component {
       <TreesForm></TreesForm>
       <div className={styles.car}></div>
     </div>
-    <Feed userName="jinglesxmastrees" className="Feed" classNameLoading="Loading" limit="4"/>
+    {instagramFeed}
  </>
  )
 
 
- const disposeTreeIndex = (
-  <>
-  <div className={styles.pageWpap}>
-    <div className={styles.h1SoldOut}/>
-    <div className={styles.soldOutMessage}>WE ARE CURRENTLY SOLD OUT!</div>
-    <div className={styles.subTextGreen}>
-        We wish you Happy Holidays and hope to see you next year.
+  const disposeTreeIndex = (
+    <>
+    <div className={styles.pageWpap}>
+      <div className={styles.h1SoldOut}/>
+      <div className={styles.soldOutMessage}>WE ARE CURRENTLY SOLD OUT!</div>
+      <div className={styles.subTextGreen}>
+          We wish you Happy Holidays and hope to see you next year.
+        </div>
+      <CollectionForm></CollectionForm>
+      <div className={styles.car}></div>
+    </div>
+    {instagramFeed}
+  </>
+  )
+
+  const closedIndex = (
+    <>
+      <div className={styles.pageWpap}>
+        <div className={styles.h1SoldOut}/>
+        <div className={styles.soldOutMessage}>
+          Huge thanks to all who chose Jingles Xmas Trees.
+          We hope you had a wonderful Christmas and a happy NYE.  <br/>
+          We will see you at the end of the year.
+        </div>
       </div>
-    <CollectionForm></CollectionForm>
-    <div className={styles.car}></div>
-  </div>
-  <Feed userName="jinglesxmastrees" className="Feed" classNameLoading="Loading" limit="4"/>
-</>
-)
+      {instagramFeed}
+    </>
+  )
+
 
     return (
       <>
         {this.state.done ? 
-          (isSoldOut ? disposeTreeIndex : orderTreeIndex)
+          (isSoldOut ? ( isClosedForYear ? closedIndex : disposeTreeIndex ) : orderTreeIndex)
           : 
           (<h1 className="loading">Jingles Xmas Trees</h1>)
         }

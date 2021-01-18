@@ -1,3 +1,18 @@
+The index page has three options:
+
+1) Sales are open
+2) Sales are closed, collection is open
+3) Everything closed for the year.
+
+To change between states you need to update flags in the App.js state
+
+isSoldOut: true,  // change this to false to see the tree order form
+isClosedForYear: true, // change this to false to see other states
+
+To run front-end, in terminal run
+
+npm run start-react
+
 # Stripe Payments for Jingles
 
 This app is based on Stripe Payments Demo and features social login with Facebook.

@@ -123,16 +123,16 @@ export const subTextRed = css`
 export const soldOutMessage = css`
   color: ${RED};
   font-weight: 500;
-  width: 90%;
-  margin: .2em auto 1em;
-  font-size: .8em;
-  line-height: 1em;
-  letter-spacing: 1px;
-
-  @media (min-width: 768px) {
+  width: 98%;
+  margin: .2em auto 3em;
+  font-size: 1.4em;
+  line-height: 1.2em;
+  
+  @media (min-width: 490px) {
     width: 47vw;
-    font-size: 1.5vw;
-    line-height: 1.8vw;
+    font-size: 1.8vw;
+    line-height: 2.5vw;
+    letter-spacing: 1px;
     font-weight: 600;
     margin: 1vw auto 2vw;
   }
